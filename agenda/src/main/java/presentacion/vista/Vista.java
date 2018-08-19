@@ -20,7 +20,7 @@ public class Vista {
 	private JButton btnBorrar;
 	private JButton btnReporte;
 	private DefaultTableModel modelPersonas;
-	private  String[] nombreColumnas = {"Nombre y apellido","Telefono"};
+	private  String[] nombreColumnas = {"Localidad"};
 
 	public Vista() {
 		super();
