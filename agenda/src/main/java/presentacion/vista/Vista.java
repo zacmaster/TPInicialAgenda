@@ -71,20 +71,20 @@ public class Vista {
 	}
 	
 	public void show() {
-		this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		this.frame.addWindowListener(new WindowAdapter() {
-			@Override
-		    public void windowClosing(WindowEvent e) {
-		        int confirm = JOptionPane.showOptionDialog(
-		             null, "Estas seguro que quieres salir de la Agenda!?", 
-		             "Confirmacion", JOptionPane.YES_NO_OPTION,
-		             JOptionPane.QUESTION_MESSAGE, null, null, null);
-		        if (confirm == 0) {
-		        	Conexion.getConexion().cerrarConexion();
-		           System.exit(0);
-		        }
-		    }
-		});
+//		this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+//		this.frame.addWindowListener(new WindowAdapter() {
+//			@Override
+//		    public void windowClosing(WindowEvent e) {
+//		        int confirm = JOptionPane.showOptionDialog(
+//		             null, "Estas seguro que quieres salir de la Agenda!?", 
+//		             "Confirmacion", JOptionPane.YES_NO_OPTION,
+//		             JOptionPane.QUESTION_MESSAGE, null, null, null);
+//		        if (confirm == 0) {
+//		        	Conexion.getConexion().cerrarConexion();
+//		           System.exit(0);
+//		        }
+//		    }
+//		});
 		this.frame.setVisible(true);
 	}
 	
