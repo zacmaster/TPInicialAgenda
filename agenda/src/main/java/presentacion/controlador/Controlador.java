@@ -148,7 +148,6 @@ public class Controlador implements ActionListener {
 				this.llenarComboBoxTiposContacto();
 			}
 			
-//			
 			else if(this.ventanaLocalidad != null && e.getSource() ==  this.ventanaLocalidad.getBtnNueva()) {
 				this.dialogoNuevaLocalidad = new DialogoNuevaLocalidad(this);
 			}

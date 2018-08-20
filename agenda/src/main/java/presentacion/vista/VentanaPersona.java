@@ -2,19 +2,17 @@ package presentacion.vista;
 
 import java.awt.Font;
 import java.awt.Insets;
+import java.util.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Locale;
 
-import javax.swing.AbstractButton;
-import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.event.ListDataListener;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -143,6 +141,7 @@ public class VentanaPersona extends JFrame {
 		dateChooser = new JDateChooser();
 		dateChooser.setBounds(180, y_cumple, 180, 20);
 		dateChooser.setLocale(new Locale("es"));
+		dateChooser.setDate(Calendar.getInstance().getTime());
 		panel.add(dateChooser);
 		
 	}
@@ -272,7 +271,7 @@ public class VentanaPersona extends JFrame {
 	}
 	
 	public String getFechaNac() {
-		return "";
+		return dateChooser.getDate().toString();
 	}
 	
 	public String getTipoContacto() {
