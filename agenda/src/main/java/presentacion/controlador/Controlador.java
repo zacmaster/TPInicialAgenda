@@ -66,6 +66,7 @@ public class Controlador implements ActionListener {
 			if(e.getSource() == this.vista.getBtnAgregar()) {
 				this.ventanaPersona = new VentanaPersona(this);
 				this.llenarComboBoxTiposContacto();
+				this.llenarComboBoxLocalidades();
 			}
 			else if(e.getSource() == this.vista.getBtnBorrar()) {
 				int[] filas_seleccionadas = this.vista.getTablaPersonas().getSelectedRows();
@@ -144,6 +145,7 @@ public class Controlador implements ActionListener {
 					this.agenda.borrarLocalidad(this.localidades_en_tabla.get(fila));
 				}
 				this.llenarTablaLocalidades();
+				this.llenarComboBoxTiposContacto();
 			}
 			
 //			
@@ -155,6 +157,7 @@ public class Controlador implements ActionListener {
 				
 				this.agenda.agregarLocalidad(new LocalidadDTO(0, this.dialogoNuevaLocalidad.getInput().getText()));
 				this.llenarTablaLocalidades();
+				this.llenarComboBoxLocalidades();
 				this.dialogoNuevaLocalidad.dispose();
 			}
 			
@@ -189,6 +192,14 @@ public class Controlador implements ActionListener {
 			this.ventanaPersona.getComboTipoContactos().setModel(new DefaultComboBoxModel<>());
 			for (TipoContactoDTO tiposDeContactoDTO : agenda.obtenerTiposContacto()) {
 				this.ventanaPersona.getComboTipoContactos().addItem(tiposDeContactoDTO.getTipoContacto());
+			}
+		}
+		
+		
+		private void llenarComboBoxLocalidades() {
+			this.ventanaPersona.getComboLocalidades().setModel(new DefaultComboBoxModel<>());
+			for(LocalidadDTO localidadDTO: agenda.obtenerLocalidades()){
+				this.ventanaPersona.getComboLocalidades().addItem(localidadDTO.getNombreLocalidad());
 			}
 		}
 		

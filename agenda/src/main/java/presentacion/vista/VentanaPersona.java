@@ -5,6 +5,7 @@ import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import javax.swing.AbstractButton;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -35,7 +36,6 @@ public class VentanaPersona extends JFrame {
 								"Tipo de contacto", "Fecha cumpleaños", "Dirección",
 								"Localidad","Calle","Altura", "Piso", "Depto" };
 	
-	private String[] listaLocalidades = {"Polvorines", "Rosario"};
 	
 	private final int x_start = 10;
 	private final int y_start = 10;
@@ -84,8 +84,7 @@ public class VentanaPersona extends JFrame {
 			
 
 	private void dibujarControlesLocalidad() {
-		comboLocalidades = new JComboBox<>(listaLocalidades);
-//		comboLocalidades.setSelectedIndex(0);
+		comboLocalidades = new JComboBox<>();
 		comboLocalidades.setBounds(180, y_localidad, 150, 20);
 		
 		btnABMLocalidad = new JButton("+");
@@ -283,6 +282,13 @@ public class VentanaPersona extends JFrame {
 	public JButton getABMTipoContacto() {
 		return btnAgregarTipoContacto;
 	}
+
+
+	public JComboBox<String> getComboLocalidades() {
+		return comboLocalidades;
+	}
+
+	
 	
 }
 
