@@ -5,12 +5,15 @@ import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.ListDataListener;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -82,7 +85,7 @@ public class VentanaPersona extends JFrame {
 
 	private void dibujarControlesLocalidad() {
 		comboLocalidades = new JComboBox<>(listaLocalidades);
-		comboLocalidades.setSelectedIndex(0);
+//		comboLocalidades.setSelectedIndex(0);
 		comboLocalidades.setBounds(180, y_localidad, 150, 20);
 		
 		btnABMLocalidad = new JButton("+");
@@ -95,9 +98,7 @@ public class VentanaPersona extends JFrame {
 	}
 	
 	private void dibujarControlesTipoContacto() {
-		String[] listaTiposContacto = {"Familia", "Amigos"};
-		comboTipoContactos = new JComboBox<>(listaTiposContacto);
-		comboTipoContactos.setSelectedIndex(0);
+		comboTipoContactos = new JComboBox<>();
 		comboTipoContactos.setBounds(180, y_tipoDeContacto, 150, 20);
 		
 		btnAgregarTipoContacto = new JButton("+");
@@ -111,9 +112,31 @@ public class VentanaPersona extends JFrame {
 	
 	
 	
-	public JButton getABMTipoContacto() {
-		return btnAgregarTipoContacto;
+	public int getY_tipoDeContacto() {
+		return y_tipoDeContacto;
 	}
+
+
+	public void setY_tipoDeContacto(int y_tipoDeContacto) {
+		this.y_tipoDeContacto = y_tipoDeContacto;
+	}
+
+
+	public JComboBox<String> getComboTipoContactos() {
+		return comboTipoContactos;
+	}
+
+
+	public void setComboTipoContactos(JComboBox<String> comboTipoContactos) {
+		System.out.println(comboTipoContactos.getModel().getSize());
+		System.out.println("Dentro de setcombo");
+		this.comboTipoContactos = comboTipoContactos;
+		System.out.println(this.comboTipoContactos.getModel().getSize());
+		this.comboTipoContactos.repaint();
+	}
+
+
+
 
 
 	private void dibujarCumple() {
@@ -257,7 +280,9 @@ public class VentanaPersona extends JFrame {
 		return "";
 	}
 	
-	
+	public JButton getABMTipoContacto() {
+		return btnAgregarTipoContacto;
+	}
 	
 }
 

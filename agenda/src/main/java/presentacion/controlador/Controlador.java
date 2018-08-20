@@ -2,7 +2,12 @@ package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Iterator;
 import java.util.List;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+
 import modelo.Agenda;
 import presentacion.reportes.ReporteAgenda;
 import presentacion.vista.DialogoNuevaLocalidad;
@@ -60,6 +65,7 @@ public class Controlador implements ActionListener {
 		public void actionPerformed(ActionEvent e)  {
 			if(e.getSource() == this.vista.getBtnAgregar()) {
 				this.ventanaPersona = new VentanaPersona(this);
+				this.llenarComboBoxTiposContacto();
 			}
 			else if(e.getSource() == this.vista.getBtnBorrar()) {
 				int[] filas_seleccionadas = this.vista.getTablaPersonas().getSelectedRows();
@@ -91,12 +97,12 @@ public class Controlador implements ActionListener {
 			
 			
 			else if(this.ventanaTipoContacto != null && e.getSource() == this.ventanaTipoContacto.getBtnBorrar()) {
-				System.out.println("Borrando  tipo cont");
 				int[] filas_seleccionadas = this.ventanaTipoContacto.getTablaTiposContacto().getSelectedRows();
 				for (int fila:filas_seleccionadas) {
 					this.agenda.borrarTipoContacto(this.tiposContacto_en_tabla.get(fila));
 				}
 				this.llenarTablaTiposContacto();
+				this.llenarComboBoxTiposContacto();
 			}
 			
 			
@@ -107,6 +113,7 @@ public class Controlador implements ActionListener {
 			else if(this.dialogoNuevoTipoContacto != null && e.getSource() == this.dialogoNuevoTipoContacto.getBtnAgregar()) {
 				this.agenda.agregarTipoContacto(new TipoContactoDTO(0, this.dialogoNuevoTipoContacto.getInput().getText()));
 				this.llenarTablaTiposContacto();
+				this.llenarComboBoxTiposContacto();
 				this.dialogoNuevoTipoContacto.dispose();
 			}
 			
@@ -132,7 +139,6 @@ public class Controlador implements ActionListener {
 			}
 			
 			else if(this.ventanaLocalidad != null && e.getSource() == this.ventanaLocalidad.getBtnBorrar()) {
-				System.out.println("Borrando");
 				int[] filas_seleccionadas = this.ventanaLocalidad.getTablaLocalidades().getSelectedRows();
 				for (int fila:filas_seleccionadas) {
 					this.agenda.borrarLocalidad(this.localidades_en_tabla.get(fila));
@@ -180,12 +186,12 @@ public class Controlador implements ActionListener {
 			}
 		}
 		private void llenarComboBoxTiposContacto() {
-			
+			this.ventanaPersona.getComboTipoContactos().setModel(new DefaultComboBoxModel<>());
+			for (TipoContactoDTO tiposDeContactoDTO : agenda.obtenerTiposContacto()) {
+				this.ventanaPersona.getComboTipoContactos().addItem(tiposDeContactoDTO.getTipoContacto());
+			}
 		}
 		
 		
-		private void refrescarTablaLocalidades() {
-			
-		}
 
 }
