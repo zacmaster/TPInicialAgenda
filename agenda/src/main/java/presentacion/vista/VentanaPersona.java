@@ -45,7 +45,7 @@ public class VentanaPersona extends JFrame {
 	
 	
 	private JButton btnAgregarTipoContacto;
-	private JButton btnAgregarLocalidad;
+	private JButton btnABMLocalidad;
 	private JButton btnAgregarPersona;
 	private JButton btnCancelar;
 	
@@ -85,13 +85,13 @@ public class VentanaPersona extends JFrame {
 		comboLocalidades.setSelectedIndex(0);
 		comboLocalidades.setBounds(180, y_localidad, 150, 20);
 		
-		btnAgregarLocalidad = new JButton("+");
-		btnAgregarLocalidad.setMargin(new Insets(0,0,0,0));
-		btnAgregarLocalidad.addActionListener(this.controlador);
-		btnAgregarLocalidad.setBounds(340, y_localidad, 20,20);
+		btnABMLocalidad = new JButton("+");
+		btnABMLocalidad.setMargin(new Insets(0,0,0,0));
+		btnABMLocalidad.addActionListener(this.controlador);
+		btnABMLocalidad.setBounds(340, y_localidad, 20,20);
 		
 		panel.add(comboLocalidades);
-		panel.add(btnAgregarLocalidad);
+		panel.add(btnABMLocalidad);
 	}
 	
 	private void dibujarControlesTipoContacto() {
@@ -222,9 +222,12 @@ public class VentanaPersona extends JFrame {
 	public JButton getBtnAgregarPersona() {
 		return btnAgregarPersona;
 	}
-	public JButton getBtnAgregarLocalidad() {
-		return btnAgregarLocalidad;
+	
+	public JButton getBtnABMLocalidad() {
+		return btnABMLocalidad;
 	}
+
+
 	public String getTxtLocalidad() {
 		return String.valueOf(comboLocalidades.getSelectedItem());
 	}

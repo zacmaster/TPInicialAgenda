@@ -2,11 +2,11 @@ package dto;
 
 public class LocalidadDTO {
 	private int idLocalidad;
-	private String Localidad;
+	private String nombreLocalidad;
 	
 	public LocalidadDTO(int idLocalidad, String Localidad){
 		this.idLocalidad = idLocalidad;
-		this.Localidad = Localidad;
+		this.nombreLocalidad = Localidad;
 	}
 
 	public int getIdLocalidad() {
@@ -17,12 +17,13 @@ public class LocalidadDTO {
 		this.idLocalidad = idLocalidad;
 	}
 
-	public String getLocalidad() {
-		return Localidad;
+	public String getNombreLocalidad() {
+		return nombreLocalidad;
 	}
 
 	public void setLocalidad(String localidad) {
-		Localidad = localidad;
+		nombreLocalidad = localidad;
 	}
+
 
 }
