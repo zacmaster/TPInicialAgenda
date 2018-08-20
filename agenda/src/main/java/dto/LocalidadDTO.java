@@ -2,26 +2,27 @@ package dto;
 
 public class LocalidadDTO {
 	private int idLocalidad;
-	private String nombre;
+	private String Localidad;
 	
-	
-	
-	public LocalidadDTO(int idLocalidad, String nombre) {
-		super();
+	public LocalidadDTO(int idLocalidad, String Localidad){
 		this.idLocalidad = idLocalidad;
-		this.nombre = nombre;
+		this.Localidad = Localidad;
 	}
+
 	public int getIdLocalidad() {
 		return idLocalidad;
 	}
+
 	public void setIdLocalidad(int idLocalidad) {
 		this.idLocalidad = idLocalidad;
 	}
-	public String getNombre() {
-		return nombre;
+
+	public String getLocalidad() {
+		return Localidad;
 	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+
+	public void setLocalidad(String localidad) {
+		Localidad = localidad;
 	}
-	
+
 }

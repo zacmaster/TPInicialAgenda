@@ -66,8 +66,14 @@ public class Controlador implements ActionListener {
 //				LocalidadDTO nuevaLocalidad = new LocalidadDTO(	0, "");
 			}
 			else if(e.getSource() == this.ventanaPersona.getBtnAgregarPersona()) {
-				System.out.println("ADD PERSONA");
-				PersonaDTO nuevaPersona = new PersonaDTO(0,this.ventanaPersona.getTxtNombre().getText(), ventanaPersona.getTxtTelefono().getText());
+				
+				PersonaDTO nuevaPersona = new PersonaDTO(	0,this.ventanaPersona.getTxtNombre().getText(),
+															ventanaPersona.getTxtTelefono().getText(),
+															ventanaPersona.getTxtCalle().getText(),
+															ventanaPersona.getTxtAltura().getText(),
+															ventanaPersona.getTxtPiso().getText(), 
+															ventanaPersona.getTxtDepto().getText(),
+															ventanaPersona.getTxtLocalidad());
 				this.agenda.agregarPersona(nuevaPersona);
 				this.llenarTabla();
 				this.ventanaPersona.dispose();

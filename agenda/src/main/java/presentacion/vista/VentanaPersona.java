@@ -206,12 +206,18 @@ public class VentanaPersona extends JFrame {
 		return textFields.get(2);
 	}
 	
-	public JTextField getTxtPiso() {
+	public JTextField getTxtCalle() {
 		return textFields.get(3);
 	}
 	
-	public JTextField getTxtDepto() {
+	public JTextField getTxtAltura() {
 		return textFields.get(4);
+	}
+	public JTextField getTxtPiso() {
+		return textFields.get(5);
+	}
+	public JTextField getTxtDepto() {
+		return textFields.get(6);
 	}
 	public JButton getBtnAgregarPersona() {
 		return btnAgregarPersona;
@@ -219,6 +225,10 @@ public class VentanaPersona extends JFrame {
 	public JButton getBtnAgregarLocalidad() {
 		return btnAgregarLocalidad;
 	}
+	public String getTxtLocalidad() {
+		return String.valueOf(comboLocalidades.getSelectedItem());
+	}
+	
 	
 	
 	

@@ -20,7 +20,9 @@ public class Vista {
 	private JButton btnBorrar;
 	private JButton btnReporte;
 	private DefaultTableModel modelPersonas;
-	private  String[] nombreColumnas = {"Nombre y apellido","Telefono"};
+	private  String[] nombreColumnas = {	"Nombre","Teléfono","Email",
+											"Grupo","Cumpleaños","Localidad",
+											"Calle","Altura","Piso","Depto"};
 
 	public Vista() {
 		super();
@@ -50,6 +52,11 @@ public class Vista {
 		tablaPersonas.getColumnModel().getColumn(0).setResizable(false);
 		tablaPersonas.getColumnModel().getColumn(1).setPreferredWidth(100);
 		tablaPersonas.getColumnModel().getColumn(1).setResizable(false);
+		
+		
+		JScrollPane sPHorizontal = new JScrollPane(tablaPersonas, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		tablaPersonas.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		panel.add(sPHorizontal);
 		
 		spPersonas.setViewportView(tablaPersonas);
 		

@@ -11,7 +11,7 @@ import persistencia.dao.interfaz.PersonaDAO;
 import dto.PersonaDTO;
 
 public class PersonaDAOSQL implements PersonaDAO {
-	private static final String insert = "INSERT INTO personas(idPersona, nombre, telefono) VALUES(?, ?, ?)";
+	private static final String insert = "INSERT INTO personas(idPersona, nombre, telefono, calle, altura, piso, departamento, idlocalidad) VALUES(?, ?, ?, ?, ?, ?, ?)";
 	private static final String delete = "DELETE FROM personas WHERE idPersona = ?";
 	private static final String readall = "SELECT * FROM personas";
 		
@@ -23,6 +23,11 @@ public class PersonaDAOSQL implements PersonaDAO {
 			statement.setInt(1, persona.getIdPersona());
 			statement.setString(2, persona.getNombre());
 			statement.setString(3, persona.getTelefono());
+			statement.setString(4, persona.getCalle());
+			statement.setString(5, persona.getAltura());
+			statement.setString(6, persona.getPiso());
+			statement.setString(7, persona.getDepto());
+			statement.setString(8, persona.getLocalidad());
 			if(statement.executeUpdate() > 0) //Si se ejecut� devuelvo true
 				return true;
 		} 
@@ -60,7 +65,7 @@ public class PersonaDAOSQL implements PersonaDAO {
 			resultSet = statement.executeQuery();
 			
 			while(resultSet.next()) {
-				personas.add(new PersonaDTO(resultSet.getInt("idPersona"), resultSet.getString("Nombre"), resultSet.getString("Telefono")));
+				personas.add(new PersonaDTO(resultSet.getInt("idPersona"), resultSet.getString("Nombre"), resultSet.getString("Telefono"), resultSet.getString("Calle"), resultSet.getString("Altura"), resultSet.getString("Piso"), resultSet.getString("Departamento"), resultSet.getString("idLocalidad")));
 			}
 		} 
 		catch (SQLException e) {
