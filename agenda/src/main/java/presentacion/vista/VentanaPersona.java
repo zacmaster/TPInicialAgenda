@@ -111,6 +111,11 @@ public class VentanaPersona extends JFrame {
 	
 	
 	
+	public JButton getABMTipoContacto() {
+		return btnAgregarTipoContacto;
+	}
+
+
 	private void dibujarCumple() {
 
 		dateChooser = new JDateChooser();

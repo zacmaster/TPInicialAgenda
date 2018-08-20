@@ -6,21 +6,27 @@ import java.util.List;
 import modelo.Agenda;
 import presentacion.reportes.ReporteAgenda;
 import presentacion.vista.DialogoNuevaLocalidad;
+import presentacion.vista.DialogoNuevoTipoContacto;
 import presentacion.vista.VentanaLocalidad;
 import presentacion.vista.VentanaPersona;
+import presentacion.vista.VentanaTipoContacto;
 import presentacion.vista.Vista;
 import dto.LocalidadDTO;
 import dto.PersonaDTO;
+import dto.TipoContactoDTO;
 
 public class Controlador implements ActionListener {
 		private Vista vista;
 		private List<PersonaDTO> personas_en_tabla;
 		private List<LocalidadDTO> localidades_en_tabla;
+		private List<TipoContactoDTO> tiposContacto_en_tabla;
 		
 		
 		private VentanaPersona ventanaPersona; 
 		private VentanaLocalidad ventanaLocalidad;
+		private VentanaTipoContacto ventanaTipoContacto;
 		private DialogoNuevaLocalidad dialogoNuevaLocalidad;
+		private DialogoNuevoTipoContacto dialogoNuevoTipoContacto;
 		
 		private Agenda agenda;
 		
@@ -69,20 +75,43 @@ public class Controlador implements ActionListener {
 			
 			
 			
-			else if(e.getSource() == this.ventanaPersona.getBtnABMLocalidad()) {
+			
+			else if(this.ventanaPersona != null && e.getSource() == this.ventanaPersona.getBtnABMLocalidad()) {
 				this.ventanaLocalidad = new VentanaLocalidad(this);
 				this.llenarTablaLocalidades();
-//				LocalidadDTO nuevaLocalidad = new LocalidadDTO(	0, "");
 			}
 			
-			else if(e.getSource() == this.ventanaLocalidad.getBtnBorrar()) {
-				System.out.println("Borrando");
-				int[] filas_seleccionadas = this.ventanaLocalidad.getTablaLocalidades().getSelectedRows();
-				for (int fila:filas_seleccionadas) {
-					this.agenda.borrarLocalidad(this.localidades_en_tabla.get(fila));
-				}
-				this.llenarTablaLocalidades();
+			else if(this.ventanaPersona != null && e.getSource() == this.ventanaPersona.getABMTipoContacto()) {
+				this.ventanaTipoContacto = new VentanaTipoContacto(this);
+				this.llenarTablaTiposContacto();
 			}
+			
+			
+			
+			
+			
+			else if(this.ventanaTipoContacto != null && e.getSource() == this.ventanaTipoContacto.getBtnBorrar()) {
+				System.out.println("Borrando  tipo cont");
+				int[] filas_seleccionadas = this.ventanaTipoContacto.getTablaTiposContacto().getSelectedRows();
+				for (int fila:filas_seleccionadas) {
+					this.agenda.borrarTipoContacto(this.tiposContacto_en_tabla.get(fila));
+				}
+				this.llenarTablaTiposContacto();
+			}
+			
+			
+			else if(this.ventanaTipoContacto != null && e.getSource() == this.ventanaTipoContacto.getBtnNuevo()) {
+				this.dialogoNuevoTipoContacto = new  DialogoNuevoTipoContacto(this);
+			}
+			
+			else if(this.dialogoNuevoTipoContacto != null && e.getSource() == this.dialogoNuevoTipoContacto.getBtnAgregar()) {
+				this.agenda.agregarTipoContacto(new TipoContactoDTO(0, this.dialogoNuevoTipoContacto.getInput().getText()));
+				this.llenarTablaTiposContacto();
+				this.dialogoNuevoTipoContacto.dispose();
+			}
+			
+			
+			
 			
 			else if(e.getSource() == this.ventanaPersona.getBtnAgregarPersona()) {
 				PersonaDTO nuevaPersona = new PersonaDTO(	0,
@@ -102,14 +131,21 @@ public class Controlador implements ActionListener {
 				this.ventanaPersona.dispose();
 			}
 			
-			
+			else if(this.ventanaLocalidad != null && e.getSource() == this.ventanaLocalidad.getBtnBorrar()) {
+				System.out.println("Borrando");
+				int[] filas_seleccionadas = this.ventanaLocalidad.getTablaLocalidades().getSelectedRows();
+				for (int fila:filas_seleccionadas) {
+					this.agenda.borrarLocalidad(this.localidades_en_tabla.get(fila));
+				}
+				this.llenarTablaLocalidades();
+			}
 			
 //			
-			else if(e.getSource() ==  this.ventanaLocalidad.getBtnNueva()) {
+			else if(this.ventanaLocalidad != null && e.getSource() ==  this.ventanaLocalidad.getBtnNueva()) {
 				this.dialogoNuevaLocalidad = new DialogoNuevaLocalidad(this);
 			}
 			
-			else if(e.getSource() == this.dialogoNuevaLocalidad.getBtnAgregar()) {
+			else if(this.dialogoNuevaLocalidad != null && e.getSource() == this.dialogoNuevaLocalidad.getBtnAgregar()) {
 				
 				this.agenda.agregarLocalidad(new LocalidadDTO(0, this.dialogoNuevaLocalidad.getInput().getText()));
 				this.llenarTablaLocalidades();
@@ -130,6 +166,23 @@ public class Controlador implements ActionListener {
 				this.ventanaLocalidad.getModelLocalidad().addRow(fila);
 			}
 		}
+		
+		private void llenarTablaTiposContacto() {
+			
+			this.ventanaTipoContacto.getModelTipoContacto().setRowCount(0);
+			this.ventanaTipoContacto.getModelTipoContacto().setColumnCount(0);
+			this.ventanaTipoContacto.getModelTipoContacto().setColumnIdentifiers(this.ventanaTipoContacto.getNombreColumnas());
+		
+			this.tiposContacto_en_tabla = agenda.obtenerTiposContacto();
+			for (int i = 0; i < this.tiposContacto_en_tabla.size(); i++) {
+				Object[] fila = { this.tiposContacto_en_tabla.get(i).getTipoContacto()};
+				this.ventanaTipoContacto.getModelTipoContacto().addRow(fila);
+			}
+		}
+		private void llenarComboBoxTiposContacto() {
+			
+		}
+		
 		
 		private void refrescarTablaLocalidades() {
 			

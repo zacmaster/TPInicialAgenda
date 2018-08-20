@@ -1,6 +1,5 @@
 package presentacion.vista;
 
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -9,8 +8,7 @@ import javax.swing.JTextField;
 
 import presentacion.controlador.Controlador;
 
-public class DialogoNuevaLocalidad extends JFrame{
- 
+public class DialogoNuevoTipoContacto extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private JPanel panel;
 	@SuppressWarnings("unused")
@@ -28,16 +26,15 @@ public class DialogoNuevaLocalidad extends JFrame{
 	private JTextField input;
 	private JLabel label;
 	
-	public DialogoNuevaLocalidad(Controlador controlador) {
+	public DialogoNuevoTipoContacto(Controlador controlador) {
 		super();
 		this.setBounds(x,y,width,height);
 		this.setVisible(true);
 		this.setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.controlador = controlador;
-		this.setTitle("Nueva localidad");
+		this.setTitle("Nuevo tipo de contacto");
 		this.setLayout(null);
-		
 		
 		panel = new JPanel();
 		panel.setLayout(null);
@@ -68,11 +65,6 @@ public class DialogoNuevaLocalidad extends JFrame{
 		panel.add(btnCancelar);
 		panel.add(input);
 		panel.add(label);
-		
-		
-		
-		
-		
 	}
 
 	public JButton getBtnAgregar() {
@@ -84,5 +76,5 @@ public class DialogoNuevaLocalidad extends JFrame{
 	}
 	
 	
-    
+		
 }

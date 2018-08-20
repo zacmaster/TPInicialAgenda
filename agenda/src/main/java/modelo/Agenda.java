@@ -55,7 +55,7 @@ public class Agenda {
 		this.tipo_contacto.delete(tipo_contacto_a_eliminar);
 	}
 	
-	public List<TipoContactoDTO> obtenerTipoContacto() {
+	public List<TipoContactoDTO> obtenerTiposContacto() {
 		return this.tipo_contacto.readAll();
 	}
 }
