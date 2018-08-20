@@ -5,14 +5,17 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import modelo.Agenda;
 import presentacion.reportes.ReporteAgenda;
+import presentacion.vista.VentanaLocalidad;
 import presentacion.vista.VentanaPersona;
 import presentacion.vista.Vista;
+import dto.LocalidadDTO;
 import dto.PersonaDTO;
 
 public class Controlador implements ActionListener {
 		private Vista vista;
 		private List<PersonaDTO> personas_en_tabla;
 		private VentanaPersona ventanaPersona; 
+		private VentanaLocalidad ventanaLocalidad;
 		private Agenda agenda;
 		
 		public Controlador(Vista vista, Agenda agenda) {
@@ -57,7 +60,13 @@ public class Controlador implements ActionListener {
 				ReporteAgenda reporte = new ReporteAgenda(agenda.obtenerPersonas());
 				reporte.mostrar();				
 			}
+			else if(e.getSource() == this.ventanaPersona.getBtnAgregarLocalidad()) {
+				System.out.println("ADD LOCALIDAD");
+				this.ventanaLocalidad = new VentanaLocalidad(this);
+//				LocalidadDTO nuevaLocalidad = new LocalidadDTO(	0, "");
+			}
 			else if(e.getSource() == this.ventanaPersona.getBtnAgregarPersona()) {
+				System.out.println("ADD PERSONA");
 				PersonaDTO nuevaPersona = new PersonaDTO(0,this.ventanaPersona.getTxtNombre().getText(), ventanaPersona.getTxtTelefono().getText());
 				this.agenda.agregarPersona(nuevaPersona);
 				this.llenarTabla();

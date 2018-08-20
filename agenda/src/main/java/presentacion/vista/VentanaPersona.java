@@ -3,12 +3,16 @@ package presentacion.vista;
 import java.awt.Font;
 import java.awt.Insets;
 import java.util.ArrayList;
+import java.util.Locale;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import com.toedter.calendar.JDateChooser;
 
 import presentacion.controlador.Controlador;
 
@@ -21,6 +25,7 @@ public class VentanaPersona extends JFrame {
 	private int y_localidad = 0;
 	private int y_tipoDeContacto = 0;
 	private int y_cumple = 0;
+	private JDateChooser dateChooser;
 	
 	
 	private String[] labels = {	"Nombre", "Teléfono", "Email",
@@ -37,8 +42,6 @@ public class VentanaPersona extends JFrame {
 	private ArrayList<JTextField> textFields = new ArrayList<>();
 	private JComboBox<String> comboTipoContactos;
 	private JComboBox<String> comboLocalidades;
-	private JComboBox<String> comboDiaCumple;
-	private JComboBox<String> comboMesCumple;
 	
 	
 	private JButton btnAgregarTipoContacto;
@@ -57,7 +60,8 @@ public class VentanaPersona extends JFrame {
 		this.controlador = controlador;
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(600, 200, anchoVentana, altoVentana);
+		setBounds(400, 200, anchoVentana, altoVentana);
+		setResizable(false);
 		
 		panel = new JPanel();
 		panel.setBounds(10, 11, anchoVentana, altoVentana);
@@ -83,6 +87,7 @@ public class VentanaPersona extends JFrame {
 		
 		btnAgregarLocalidad = new JButton("+");
 		btnAgregarLocalidad.setMargin(new Insets(0,0,0,0));
+		btnAgregarLocalidad.addActionListener(this.controlador);
 		btnAgregarLocalidad.setBounds(340, y_localidad, 20,20);
 		
 		panel.add(comboLocalidades);
@@ -96,6 +101,7 @@ public class VentanaPersona extends JFrame {
 		comboTipoContactos.setBounds(180, y_tipoDeContacto, 150, 20);
 		
 		btnAgregarTipoContacto = new JButton("+");
+		btnAgregarTipoContacto.addActionListener(this.controlador);
 		btnAgregarTipoContacto.setMargin(new Insets(0,0,0,0));
 		btnAgregarTipoContacto.setBounds(340, y_tipoDeContacto, 20,20);
 		
@@ -106,31 +112,16 @@ public class VentanaPersona extends JFrame {
 	
 	
 	private void dibujarCumple() {
-		String[] meses = {	"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-				"Julio", "Agosto", "Septiembre", "Octubre", "Noviembre",
-				"Diciembre" };
-		comboMesCumple = new JComboBox<>(meses);
-		comboMesCumple.setBounds(260, y_cumple, 100, 20);
-		
-		String[] dias = new String[31];
-		for (int i = 0; i < 31; i++) {
-			dias[i] = String.valueOf(i+1);
-		}
-		comboDiaCumple = new JComboBox<String>(dias);
-		comboDiaCumple.setBounds(180, y_cumple, 70, 20);
-		
-		
-		panel.add(comboMesCumple);
-		panel.add(comboDiaCumple);
-		
+
+		dateChooser = new JDateChooser();
+		dateChooser.setBounds(180, y_cumple, 180, 20);
+		dateChooser.setLocale(new Locale("es"));
+		panel.add(dateChooser);
 		
 	}
 	
 
 
-	public JButton getBtnAgregarPersona() {
-		return btnAgregarPersona;
-	}
 	
 	
 	private void dibujarLabels() {
@@ -191,15 +182,11 @@ public class VentanaPersona extends JFrame {
 		
 		btnAgregarPersona = new JButton("Agregar");
 		btnAgregarPersona.addActionListener(this.controlador);
-		btnAgregarPersona.setBounds(	220,
-										this.altoVentana - 80,
-										89, 23);
+		btnAgregarPersona.setBounds(220, this.altoVentana - 80, 89, 23);
 		panel.add(btnAgregarPersona);
 		
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(	this.anchoVentana / 8,
-								this.altoVentana - 80,
-								100, 23);
+		btnCancelar.setBounds(	this.anchoVentana / 8, this.altoVentana - 80, 100, 23);
 		btnCancelar.addActionListener( e -> dispose());
 		panel.add(btnCancelar);
 	}
@@ -226,6 +213,13 @@ public class VentanaPersona extends JFrame {
 	public JTextField getTxtDepto() {
 		return textFields.get(4);
 	}
+	public JButton getBtnAgregarPersona() {
+		return btnAgregarPersona;
+	}
+	public JButton getBtnAgregarLocalidad() {
+		return btnAgregarLocalidad;
+	}
+	
 	
 	
 }
