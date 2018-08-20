@@ -2,7 +2,6 @@ package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Iterator;
 import java.util.List;
 import modelo.Agenda;
 import presentacion.reportes.ReporteAgenda;
@@ -47,7 +46,7 @@ public class Controlador implements ActionListener {
 			
 			this.personas_en_tabla = agenda.obtenerPersonas();
 			for (int i = 0; i < this.personas_en_tabla.size(); i ++) {
-				Object[] fila = {this.personas_en_tabla.get(i).getNombre(), this.personas_en_tabla.get(i).getTelefono()};
+				Object[] fila = {this.personas_en_tabla.get(i).getNombre(), this.personas_en_tabla.get(i).getTelefono(), this.personas_en_tabla.get(i)};
 				this.vista.getModelPersonas().addRow(fila);
 			}			
 		}
@@ -61,20 +60,21 @@ public class Controlador implements ActionListener {
 				for (int fila:filas_seleccionadas) {
 					this.agenda.borrarPersona(this.personas_en_tabla.get(fila));
 				}
-				
 				this.llenarTabla();
 			}
-			
-			
 			else if(e.getSource() == this.vista.getBtnReporte()) {				
 				ReporteAgenda reporte = new ReporteAgenda(agenda.obtenerPersonas());
 				reporte.mostrar();				
 			}
+			
+			
+			
 			else if(e.getSource() == this.ventanaPersona.getBtnABMLocalidad()) {
 				this.ventanaLocalidad = new VentanaLocalidad(this);
 				this.llenarTablaLocalidades();
 //				LocalidadDTO nuevaLocalidad = new LocalidadDTO(	0, "");
 			}
+			
 			else if(e.getSource() == this.ventanaLocalidad.getBtnBorrar()) {
 				System.out.println("Borrando");
 				int[] filas_seleccionadas = this.ventanaLocalidad.getTablaLocalidades().getSelectedRows();
@@ -85,18 +85,25 @@ public class Controlador implements ActionListener {
 			}
 			
 			else if(e.getSource() == this.ventanaPersona.getBtnAgregarPersona()) {
-				
-				PersonaDTO nuevaPersona = new PersonaDTO(	0,this.ventanaPersona.getTxtNombre().getText(),
+				PersonaDTO nuevaPersona = new PersonaDTO(	0,
+															this.ventanaPersona.getTxtNombre().getText(),
 															ventanaPersona.getTxtTelefono().getText(),
 															ventanaPersona.getTxtCalle().getText(),
 															ventanaPersona.getTxtAltura().getText(),
 															ventanaPersona.getTxtPiso().getText(), 
 															ventanaPersona.getTxtDepto().getText(),
-															ventanaPersona.getTxtLocalidad());
+															ventanaPersona.getTxtLocalidad(),
+															ventanaPersona.getTxtEmail().getText(),
+															ventanaPersona.getFechaNac(),
+															ventanaPersona.getTipoContacto()
+															);
 				this.agenda.agregarPersona(nuevaPersona);
 				this.llenarTabla();
 				this.ventanaPersona.dispose();
 			}
+			
+			
+			
 //			
 			else if(e.getSource() ==  this.ventanaLocalidad.getBtnNueva()) {
 				this.dialogoNuevaLocalidad = new DialogoNuevaLocalidad(this);
@@ -108,7 +115,6 @@ public class Controlador implements ActionListener {
 				this.llenarTablaLocalidades();
 				this.dialogoNuevaLocalidad.dispose();
 			}
-//			
 			
 		}
 		

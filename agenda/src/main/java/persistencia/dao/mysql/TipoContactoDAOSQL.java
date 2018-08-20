@@ -6,39 +6,41 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dto.LocalidadDTO;
 import dto.PersonaDTO;
+import dto.TipoContactoDTO;
 import persistencia.conexion.Conexion;
-import persistencia.dao.interfaz.LocalidadDAO;
+import persistencia.dao.interfaz.TipoContactoDAO;
 
-public class LocalidadDAOSQL implements LocalidadDAO {
-	private static final String insert = "INSERT INTO localidad(idLocalidad, Localidad) VALUES(?, ?)";
-	private static final String delete = "DELETE FROM localidad WHERE idLocalidad = ?";
-	private static final String readall = "SELECT * FROM localidad";
+public class TipoContactoDAOSQL implements TipoContactoDAO {
 	
-	public boolean insert(LocalidadDTO localidad) {
+	private static final String insert = "INSERT INTO tipo_contacto(idTipoContacto,Tipo_Contacto) VALUES(?, ?)";
+	private static final String delete = "DELETE FROM tipo_contacto WHERE idTipoContacto = ?";
+	private static final String readall = "SELECT * FROM tipo_contacto";
+	
+	public boolean insert(TipoContactoDTO tipo_contacto) {
 		PreparedStatement statement;
 		Conexion conexion = Conexion.getConexion();
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(insert);
-			statement.setInt(1, localidad.getIdLocalidad());
-			statement.setString(2, localidad.getNombreLocalidad());
+			statement.setInt(1, tipo_contacto.getIdTipoContacto());
+			statement.setString(2, tipo_contacto.getTipoContacto());
 			if(statement.executeUpdate() > 0) //Si se ejecut� devuelvo true
 				return true;
 		} 
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return false;
 	}
 
-	public boolean delete(LocalidadDTO localidad_a_eliminar) {
+	public boolean delete(TipoContactoDTO tipo_contacto_a_eliminar) {
 		PreparedStatement statement;
 		int chequeoUpdate = 0;
 		Conexion conexion = Conexion.getConexion();
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(delete);
-			statement.setString(1, Integer.toString(localidad_a_eliminar.getIdLocalidad()));
+			statement.setString(1, Integer.toString(tipo_contacto_a_eliminar.getIdTipoContacto()));
 			chequeoUpdate = statement.executeUpdate();
 			if(chequeoUpdate > 0) //Si se ejecutó devuelvo true
 				return true;
@@ -49,23 +51,23 @@ public class LocalidadDAOSQL implements LocalidadDAO {
 		return false;
 	}
 
-	public List<LocalidadDTO> readAll() {
+	public List<TipoContactoDTO> readAll() {
 		PreparedStatement statement;
 		ResultSet resultSet; //Guarda el resultado de la query
-		ArrayList<LocalidadDTO> localidad = new ArrayList<LocalidadDTO>();
+		ArrayList<TipoContactoDTO> tipo_contacto = new ArrayList<TipoContactoDTO>();
 		Conexion conexion = Conexion.getConexion();
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(readall);
 			resultSet = statement.executeQuery();
 			
 			while(resultSet.next()) {
-				localidad.add(new LocalidadDTO(resultSet.getInt("idLocalidad"), resultSet.getString("Localidad")));
+				tipo_contacto.add(new TipoContactoDTO(resultSet.getInt("idTipoContacto"), resultSet.getString("Tipo_Contacto")));
 			}
 		} 
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return localidad;
+		return tipo_contacto;
 	}
 
 }

@@ -231,7 +231,26 @@ public class VentanaPersona extends JFrame {
 	public String getTxtLocalidad() {
 		return String.valueOf(comboLocalidades.getSelectedItem());
 	}
+
+	public JTextField getTxtTipoContacto() {
+		return null;
+	}
+
+	public JTextField getTxtFechaNacimiento() {
+		return null;
+	}
+
+	public JTextField getTxtCorreo() {
+		return null;
+	}
 	
+	public String getFechaNac() {
+		return "";
+	}
+	
+	public String getTipoContacto() {
+		return "";
+	}
 	
 	
 	

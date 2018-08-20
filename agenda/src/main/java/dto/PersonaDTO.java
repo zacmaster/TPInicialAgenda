@@ -9,8 +9,11 @@ public class PersonaDTO {
 	private String piso;
 	private String depto;
 	private String localidad;
+	private String correo;
+	private String fecha_nacimiento;
+	private String tipo_contacto;
 
-	public PersonaDTO(int idPersona, String nombre, String telefono, String calle, String altura, String piso, String depto, String localidad) {
+	public PersonaDTO(int idPersona, String nombre, String telefono, String calle, String altura, String piso, String depto, String localidad, String correo, String fecha_nacimiento, String tipo_contacto) {
 		this.idPersona = idPersona;
 		this.nombre = nombre;
 		this.telefono = telefono;
@@ -19,6 +22,9 @@ public class PersonaDTO {
 		this.piso = piso;
 		this.depto = depto;
 		this.localidad = localidad;
+		this.correo = correo;
+		this.fecha_nacimiento = fecha_nacimiento;
+		this.tipo_contacto = tipo_contacto;
 	}
 	
 	public int getIdPersona() {
@@ -85,4 +91,27 @@ public class PersonaDTO {
 		this.localidad = localidad;
 	}
 
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+
+	public String getFechaNacimiento() {
+		return fecha_nacimiento;
+	}
+
+	public void setFechaNacimiento(String fecha_nacimiento) {
+		this.fecha_nacimiento = fecha_nacimiento;
+	}
+
+	public String getTipoContacto() {
+		return tipo_contacto;
+	}
+
+	public void setTipoContacto(String tipo_contacto) {
+		this.tipo_contacto = tipo_contacto;
+	}
 }
