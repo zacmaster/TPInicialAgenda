@@ -17,7 +17,6 @@ public class TipoContactoDAOSQL implements TipoContactoDAO {
 	private static final String delete = "DELETE FROM tipo_contacto WHERE idTipoContacto = ?";
 	private static final String readall = "SELECT * FROM tipo_contacto";
 	
-	@Override
 	public boolean insert(TipoContactoDTO tipo_contacto) {
 		PreparedStatement statement;
 		Conexion conexion = Conexion.getConexion();
@@ -35,7 +34,6 @@ public class TipoContactoDAOSQL implements TipoContactoDAO {
 		return false;
 	}
 
-	@Override
 	public boolean delete(TipoContactoDTO tipo_contacto_a_eliminar) {
 		PreparedStatement statement;
 		int chequeoUpdate = 0;
@@ -53,7 +51,6 @@ public class TipoContactoDAOSQL implements TipoContactoDAO {
 		return false;
 	}
 
-	@Override
 	public List<TipoContactoDTO> readAll() {
 		PreparedStatement statement;
 		ResultSet resultSet; //Guarda el resultado de la query

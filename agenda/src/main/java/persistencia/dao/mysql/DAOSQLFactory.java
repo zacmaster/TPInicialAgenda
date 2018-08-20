@@ -16,12 +16,10 @@ public class DAOSQLFactory implements DAOAbstractFactory {
 		return new PersonaDAOSQL();
 	}
 
-	@Override
 	public LocalidadDAO createLocalidadDAO() {
 		return new LocalidadDAOSQL();
 	}
 
-	@Override
 	public TipoContactoDAO createTipoContactoDAO() {
 		return new TipoContactoDAOSQL();
 	}

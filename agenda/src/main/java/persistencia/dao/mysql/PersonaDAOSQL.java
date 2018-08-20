@@ -11,9 +11,9 @@ import persistencia.dao.interfaz.PersonaDAO;
 import dto.PersonaDTO;
 
 public class PersonaDAOSQL implements PersonaDAO {
-	private static final String insert = "INSERT INTO personas(idPersona, nombre, telefono, calle, altura, piso, departamento, idlocalidad) VALUES(?, ?, ?, ?, ?, ?, ?)";
+	private static final String insert = "INSERT INTO personas(idpersona,nombre,telefono,calle,altura,piso,departamento,idlocalidad,correo,fecha_nacimiento,idTipoContacto) VALUES (?,?,?,?,?,?,?,(select idLocalidad from localidad where localidad = ?),?,?,(select idtipocontacto from tipo_contacto where tipo_contacto = ?))";
 	private static final String delete = "DELETE FROM personas WHERE idPersona = ?";
-	private static final String readall = "SELECT * FROM personas";
+	private static final String readall = "SELECT * FROM personas p INNER JOIN localidad l ON p.idLocalidad = l.idLocalidad INNER JOIN tipo_contacto t ON p.idTipoContacto = t.idTipoContacto";
 		
 	public boolean insert(PersonaDTO persona) {
 		PreparedStatement statement;
@@ -28,6 +28,9 @@ public class PersonaDAOSQL implements PersonaDAO {
 			statement.setString(6, persona.getPiso());
 			statement.setString(7, persona.getDepto());
 			statement.setString(8, persona.getLocalidad());
+			statement.setString(9, persona.getCorreo());
+			statement.setString(10, persona.getFechaNacimiento());
+			statement.setString(11, persona.getTipoContacto());
 			if(statement.executeUpdate() > 0) //Si se ejecut� devuelvo true
 				return true;
 		} 
@@ -65,7 +68,7 @@ public class PersonaDAOSQL implements PersonaDAO {
 			resultSet = statement.executeQuery();
 			
 			while(resultSet.next()) {
-				personas.add(new PersonaDTO(resultSet.getInt("idPersona"), resultSet.getString("Nombre"), resultSet.getString("Telefono"), resultSet.getString("Calle"), resultSet.getString("Altura"), resultSet.getString("Piso"), resultSet.getString("Departamento"), resultSet.getString("idLocalidad")));
+				personas.add(new PersonaDTO(resultSet.getInt("idPersona"), resultSet.getString("Nombre"), resultSet.getString("Telefono"), resultSet.getString("Calle"), resultSet.getString("Altura"), resultSet.getString("Piso"), resultSet.getString("Departamento"), resultSet.getString("Localidad"), resultSet.getString("Correo"), resultSet.getString("Fecha_Nacimiento"), resultSet.getString("Tipo_Contacto")));
 			}
 		} 
 		catch (SQLException e) {

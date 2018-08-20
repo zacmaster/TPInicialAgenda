@@ -16,7 +16,6 @@ public class LocalidadDAOSQL implements LocalidadDAO {
 	private static final String delete = "DELETE FROM localidad WHERE idLocalidad = ?";
 	private static final String readall = "SELECT * FROM localidad";
 	
-	@Override
 	public boolean insert(LocalidadDTO localidad) {
 		PreparedStatement statement;
 		Conexion conexion = Conexion.getConexion();
@@ -33,7 +32,6 @@ public class LocalidadDAOSQL implements LocalidadDAO {
 		return false;
 	}
 
-	@Override
 	public boolean delete(LocalidadDTO localidad_a_eliminar) {
 		PreparedStatement statement;
 		int chequeoUpdate = 0;
@@ -51,7 +49,6 @@ public class LocalidadDAOSQL implements LocalidadDAO {
 		return false;
 	}
 
-	@Override
 	public List<LocalidadDTO> readAll() {
 		PreparedStatement statement;
 		ResultSet resultSet; //Guarda el resultado de la query

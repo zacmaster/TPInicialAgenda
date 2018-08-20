@@ -1,5 +1,6 @@
 package presentacion.vista;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -139,6 +140,18 @@ public class VentanaPersona extends JFrame {
 
 	public JButton getBtnAgregarPersona() {
 		return btnAgregarPersona;
+	}
+
+	public JTextField getTxtTipoContacto() {
+		return null;
+	}
+
+	public JTextField getTxtFechaNacimiento() {
+		return null;
+	}
+
+	public JTextField getTxtCorreo() {
+		return null;
 	}
 	
 }
