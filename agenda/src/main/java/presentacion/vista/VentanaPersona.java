@@ -2,6 +2,7 @@ package presentacion.vista;
 
 import java.awt.Font;
 import java.awt.Insets;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,6 +17,7 @@ import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
 
+import Atxy2k.CustomTextField.RestrictedTextField;
 import presentacion.controlador.Controlador;
 
 public class VentanaPersona extends JFrame {
@@ -76,8 +78,10 @@ public class VentanaPersona extends JFrame {
 		dibujarBotones();
 		dibujarCumple();
 		
+		limiteCaracteres();
 		this.setTitle("Complete los datos");
 		this.setVisible(true);
+		
 	}
 			
 
@@ -217,7 +221,44 @@ public class VentanaPersona extends JFrame {
 		panel.add(btnCancelar);
 	}
 	
-	
+	private void limiteCaracteres() {
+		//Limito el nombre a 11 caracteres
+		RestrictedTextField restriccionNombre = new RestrictedTextField(textFields.get(0));
+		restriccionNombre.setLimit(11);
+		restriccionNombre.setOnlyText(true);
+		
+		RestrictedTextField restriccionTelefono = new RestrictedTextField(textFields.get(1),"0123456789-");
+		restriccionTelefono.setLimit(20);
+		restriccionTelefono.setOnlyCustomCharacters(true);
+		
+		RestrictedTextField restriccionEmail = new RestrictedTextField(textFields.get(2));
+		restriccionEmail.setLimit(20);
+		
+		RestrictedTextField restriccionCalle = new RestrictedTextField(textFields.get(3));
+		restriccionCalle.setLimit(30);
+		
+		RestrictedTextField restriccionAltura = new RestrictedTextField(textFields.get(4));
+		restriccionAltura.setLimit(4);
+		restriccionAltura.setOnlyNums(true);
+		
+		
+		RestrictedTextField restriccionPiso = new RestrictedTextField(textFields.get(5));
+		restriccionPiso.setLimit(2);
+		restriccionAltura.setOnlyNums(true);
+		
+		
+		RestrictedTextField restriccionDepto = new RestrictedTextField(textFields.get(6));
+		restriccionDepto.setOnlyAlphaNumeric(true);
+		restriccionDepto.setLimit(2);
+		
+		
+		
+		
+		
+		
+		
+		
+	}
 	
 	//---------------------Getters--------------------
 	public JTextField getTxtNombre() {
@@ -262,16 +303,15 @@ public class VentanaPersona extends JFrame {
 		return null;
 	}
 
-	public JTextField getTxtFechaNacimiento() {
-		return null;
-	}
 
 	public JTextField getTxtCorreo() {
 		return null;
 	}
 	
 	public String getFechaNac() {
-		return dateChooser.getDate().toString();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		return format.format(dateChooser.getDate());
+		
 	}
 	
 	public String getTipoContacto() {

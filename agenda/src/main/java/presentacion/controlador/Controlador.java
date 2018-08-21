@@ -2,11 +2,9 @@ package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
 
 import modelo.Agenda;
 import presentacion.reportes.ReporteAgenda;
@@ -33,11 +31,15 @@ public class Controlador implements ActionListener {
 		private DialogoNuevaLocalidad dialogoNuevaLocalidad;
 		private DialogoNuevoTipoContacto dialogoNuevoTipoContacto;
 		
+		
+		private boolean editandoLocalidad = false;
+		
 		private Agenda agenda;
 		
 		public Controlador(Vista vista, Agenda agenda) {
 			this.vista = vista;
 			this.vista.getBtnAgregar().addActionListener(this);
+			this.vista.getBtnEditar().addActionListener(this);
 			this.vista.getBtnBorrar().addActionListener(this);
 			this.vista.getBtnReporte().addActionListener(this);
 			this.agenda = agenda;
@@ -51,13 +53,23 @@ public class Controlador implements ActionListener {
 		}
 		
 		private void llenarTabla() {
+			
 			this.vista.getModelPersonas().setRowCount(0); //Para vaciar la tabla
 			this.vista.getModelPersonas().setColumnCount(0);
 			this.vista.getModelPersonas().setColumnIdentifiers(this.vista.getNombreColumnas());
 			
 			this.personas_en_tabla = agenda.obtenerPersonas();
 			for (int i = 0; i < this.personas_en_tabla.size(); i ++) {
-				Object[] fila = {this.personas_en_tabla.get(i).getNombre(), this.personas_en_tabla.get(i).getTelefono(), this.personas_en_tabla.get(i)};
+				Object[] fila = {	this.personas_en_tabla.get(i).getNombre(),
+									this.personas_en_tabla.get(i).getTelefono(),
+									this.personas_en_tabla.get(i).getCorreo(),
+									this.personas_en_tabla.get(i).getTipoContacto(),
+									this.personas_en_tabla.get(i).getFechaNacimiento(),
+									this.personas_en_tabla.get(i).getLocalidad(),
+									this.personas_en_tabla.get(i).getCalle(),
+									this.personas_en_tabla.get(i).getAltura(),
+									this.personas_en_tabla.get(i).getPiso(),
+									this.personas_en_tabla.get(i).getDepto()};
 				this.vista.getModelPersonas().addRow(fila);
 			}			
 		}
@@ -75,6 +87,12 @@ public class Controlador implements ActionListener {
 				}
 				this.llenarTabla();
 			}
+			else if (e.getSource() == this.vista.getBtnEditar()) {
+				this.ventanaPersona = new VentanaPersona(this);
+				llenarCamposPersona();
+				seleccionarFilaEditar();
+			}
+			
 			else if(e.getSource() == this.vista.getBtnReporte()) {				
 				ReporteAgenda reporte = new ReporteAgenda(agenda.obtenerPersonas());
 				reporte.mostrar();				
@@ -139,6 +157,15 @@ public class Controlador implements ActionListener {
 				this.ventanaPersona.dispose();
 			}
 			
+			else if(this.ventanaLocalidad != null  && e.getSource() == this.ventanaLocalidad.getBtnEditar()) {
+				this.dialogoNuevaLocalidad = new DialogoNuevaLocalidad(this);
+				int[] filas_seleccionadas = this.ventanaLocalidad.getTablaLocalidades().getSelectedRows();
+				for (int fila:filas_seleccionadas) {
+					this.dialogoNuevaLocalidad.getInput().setText(this.localidades_en_tabla.get(fila).getNombreLocalidad());
+				}
+				this.editandoLocalidad = true;
+			}
+			
 			else if(this.ventanaLocalidad != null && e.getSource() == this.ventanaLocalidad.getBtnBorrar()) {
 				int[] filas_seleccionadas = this.ventanaLocalidad.getTablaLocalidades().getSelectedRows();
 				for (int fila:filas_seleccionadas) {
@@ -150,6 +177,9 @@ public class Controlador implements ActionListener {
 			
 			else if(this.ventanaLocalidad != null && e.getSource() ==  this.ventanaLocalidad.getBtnNueva()) {
 				this.dialogoNuevaLocalidad = new DialogoNuevaLocalidad(this);
+				if(editandoLocalidad) {
+					System.out.println("Editando");
+				}
 			}
 			
 			else if(this.dialogoNuevaLocalidad != null && e.getSource() == this.dialogoNuevaLocalidad.getBtnAgregar()) {
@@ -162,6 +192,17 @@ public class Controlador implements ActionListener {
 			
 		}
 		
+		private void llenarCamposPersona() {
+			
+		}
+		
+		private void seleccionarFilaEditar() {
+			int[] filas_seleccionadas = this.vista.getTablaPersonas().getSelectedRows();
+			for (int fila:filas_seleccionadas) {
+				
+			}
+		}
+
 		private void llenarTablaLocalidades() {
 			
 			this.ventanaLocalidad.getModelLocalidad().setRowCount(0);

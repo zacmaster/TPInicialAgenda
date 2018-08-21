@@ -82,6 +82,10 @@ public class DialogoNuevaLocalidad extends JFrame{
 	public JTextField getInput() {
 		return input;
 	}
+
+	public void setInput(JTextField input) {
+		this.input = input;
+	}
 	
 	
     

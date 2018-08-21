@@ -25,6 +25,7 @@ public class VentanaLocalidad extends JFrame {
     private JButton btnNueva;
     private JButton btnVolver;
     private JButton btnBorrar;
+    private JButton btnEditar;
     
     private JPanel contenedor;
     private JPanel contenedorBotones;
@@ -33,9 +34,6 @@ public class VentanaLocalidad extends JFrame {
     private String[] nombreColumnas = {"Localidad"};
     private JTable tablaLocalidades;
     private DefaultTableModel modelLocalidad;
-    
-    
-    private JFrame dialogoNuevaLocalidad;
     
     
     private Controlador controlador;
@@ -75,11 +73,12 @@ public class VentanaLocalidad extends JFrame {
         
         btnBorrar = new JButton("Borrar");
         btnNueva = new JButton("Nueva");
+        btnEditar = new JButton("Editar");
         
         contenedorBotones.setLayout(new FlowLayout());
-        contenedorBotones.setBackground(Color.CYAN);
         contenedorBotones.add(btnVolver);
         contenedorBotones.add(btnBorrar);
+        contenedorBotones.add(btnEditar);
         contenedorBotones.add(btnNueva);
         
         
@@ -100,9 +99,14 @@ public class VentanaLocalidad extends JFrame {
     }
     
     
-    private void addListeners() {
+    public JButton getBtnEditar() {
+		return btnEditar;
+	}
+
+	private void addListeners() {
     	btnNueva.addActionListener(controlador);
     	btnBorrar.addActionListener(controlador);
+    	btnEditar.addActionListener(controlador);
     }
    
 

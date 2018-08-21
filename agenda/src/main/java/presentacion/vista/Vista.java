@@ -1,23 +1,20 @@
 package presentacion.vista;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 
-import persistencia.conexion.Conexion;
 
 public class Vista {
 	private JFrame frame;
 	private JTable tablaPersonas;
 	private JButton btnAgregar;
 	private JButton btnBorrar;
+	private JButton btnEditar;
 	private JButton btnReporte;
 	private DefaultTableModel modelPersonas;
 	private  String[] nombreColumnas = {	"Nombre","Teléfono","Email",
@@ -64,7 +61,7 @@ public class Vista {
 		btnAgregar.setBounds(10, 228, 89, 23);
 		panel.add(btnAgregar);
 		
-		JButton btnEditar = new JButton("Editar");
+		btnEditar = new JButton("Editar");
 		btnEditar.setBounds(109, 228, 89, 23);
 		panel.add(btnEditar);
 		
@@ -98,11 +95,18 @@ public class Vista {
 	public JButton getBtnAgregar() {
 		return btnAgregar;
 	}
+	
 
 	public JButton getBtnBorrar() {
 		return btnBorrar;
 	}
+	 
 	
+	public JButton getBtnEditar() {
+		return btnEditar;
+	}
+
+
 	public JButton getBtnReporte() {
 		return btnReporte;
 	}

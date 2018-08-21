@@ -25,6 +25,7 @@ private static final long serialVersionUID = 1L;
     private JButton btnNuevo;
     private JButton btnVolver;
     private JButton btnBorrar;
+    private JButton btnEditar;
     
     private JPanel contenedor;
     private JPanel contenedorBotones;
@@ -71,11 +72,12 @@ private static final long serialVersionUID = 1L;
         
         btnBorrar = new JButton("Borrar");
         btnNuevo = new JButton("Nuevo");
+        btnEditar = new JButton("Editar");
         
         contenedorBotones.setLayout(new FlowLayout());
-        contenedorBotones.setBackground(Color.CYAN);
         contenedorBotones.add(btnVolver);
         contenedorBotones.add(btnBorrar);
+        contenedorBotones.add(btnEditar);
         contenedorBotones.add(btnNuevo);
         
         
