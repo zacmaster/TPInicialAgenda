@@ -140,12 +140,14 @@ public class Controlador implements ActionListener {
 			
 			
 			else if(e.getSource() == this.ventanaPersona.getBtnAgregarPersona()) {
+				System.out.println("prueba");
+				System.out.println(ventanaPersona.getFechaNac());
 				PersonaDTO nuevaPersona = new PersonaDTO(	0,
 															this.ventanaPersona.getTxtNombre().getText(),
 															ventanaPersona.getTxtTelefono().getText(),
 															ventanaPersona.getTxtCalle().getText(),
-															ventanaPersona.getTxtAltura().getText(),
-															ventanaPersona.getTxtPiso().getText(), 
+															Integer.getInteger(ventanaPersona.getTxtAltura().getText()),
+															Integer.getInteger(ventanaPersona.getTxtPiso().getText()), 
 															ventanaPersona.getTxtDepto().getText(),
 															ventanaPersona.getTxtLocalidad(),
 															ventanaPersona.getTxtEmail().getText(),
