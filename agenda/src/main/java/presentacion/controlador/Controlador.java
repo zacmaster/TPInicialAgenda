@@ -32,7 +32,6 @@ public class Controlador implements ActionListener {
 		private DialogoNuevoTipoContacto dialogoNuevoTipoContacto;
 		
 		
-		private boolean editandoLocalidad = false;
 		
 		private Agenda agenda;
 		
@@ -90,7 +89,7 @@ public class Controlador implements ActionListener {
 			else if (e.getSource() == this.vista.getBtnEditar()) {
 				this.ventanaPersona = new VentanaPersona(this);
 				llenarCamposPersona();
-				seleccionarFilaEditar();
+//				seleccionarFilaEditar();
 			}
 			
 			else if(e.getSource() == this.vista.getBtnReporte()) {				
@@ -144,8 +143,8 @@ public class Controlador implements ActionListener {
 															this.ventanaPersona.getTxtNombre().getText(),
 															ventanaPersona.getTxtTelefono().getText(),
 															ventanaPersona.getTxtCalle().getText(),
-															ventanaPersona.getTxtAltura().getText(),
-															ventanaPersona.getTxtPiso().getText(), 
+															Integer.parseInt(ventanaPersona.getTxtAltura().getText()),
+															Integer.parseInt(ventanaPersona.getTxtPiso().getText()),
 															ventanaPersona.getTxtDepto().getText(),
 															ventanaPersona.getTxtLocalidad(),
 															ventanaPersona.getTxtEmail().getText(),
@@ -163,7 +162,6 @@ public class Controlador implements ActionListener {
 				for (int fila:filas_seleccionadas) {
 					this.dialogoNuevaLocalidad.getInput().setText(this.localidades_en_tabla.get(fila).getNombreLocalidad());
 				}
-				this.editandoLocalidad = true;
 			}
 			
 			else if(this.ventanaLocalidad != null && e.getSource() == this.ventanaLocalidad.getBtnBorrar()) {
@@ -177,9 +175,7 @@ public class Controlador implements ActionListener {
 			
 			else if(this.ventanaLocalidad != null && e.getSource() ==  this.ventanaLocalidad.getBtnNueva()) {
 				this.dialogoNuevaLocalidad = new DialogoNuevaLocalidad(this);
-				if(editandoLocalidad) {
-					System.out.println("Editando");
-				}
+				
 			}
 			
 			else if(this.dialogoNuevaLocalidad != null && e.getSource() == this.dialogoNuevaLocalidad.getBtnAgregar()) {
@@ -196,12 +192,12 @@ public class Controlador implements ActionListener {
 			
 		}
 		
-		private void seleccionarFilaEditar() {
-			int[] filas_seleccionadas = this.vista.getTablaPersonas().getSelectedRows();
-			for (int fila:filas_seleccionadas) {
-				
-			}
-		}
+//		private void seleccionarFilaEditar() {
+//			int[] filas_seleccionadas = this.vista.getTablaPersonas().getSelectedRows();
+//			for (int fila:filas_seleccionadas) {
+//				
+//			}
+//		}
 
 		private void llenarTablaLocalidades() {
 			

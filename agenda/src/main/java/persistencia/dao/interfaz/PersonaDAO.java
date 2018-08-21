@@ -11,4 +11,6 @@ public interface PersonaDAO {
 	public boolean delete(PersonaDTO persona_a_eliminar);
 	
 	public List<PersonaDTO> readAll();
+	
+	public boolean update(PersonaDTO persona_a_eliminar);
 }

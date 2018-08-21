@@ -299,13 +299,8 @@ public class VentanaPersona extends JFrame {
 		return String.valueOf(comboLocalidades.getSelectedItem());
 	}
 
-	public JTextField getTxtTipoContacto() {
-		return null;
-	}
-
-
 	public JTextField getTxtCorreo() {
-		return null;
+		return textFields.get(2);
 	}
 	
 	public String getFechaNac() {
@@ -315,7 +310,7 @@ public class VentanaPersona extends JFrame {
 	}
 	
 	public String getTipoContacto() {
-		return "";
+		return comboTipoContactos.getSelectedItem().toString();
 	}
 	
 	public JButton getABMTipoContacto() {
