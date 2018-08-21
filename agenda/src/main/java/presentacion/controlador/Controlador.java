@@ -40,7 +40,10 @@ public class Controlador implements ActionListener {
 		private LocalidadDTO localidadSeleccionada;
 		private TipoContactoDTO tipoContactoDTOSeleccionado;
 		
-		private boolean modoEdicion = false;
+		private boolean modoEdicionContacto = false;
+		private boolean modoEdicionLocalidad = false;
+		private boolean modoEdicionTipoContacto = false;
+		
 		
 		private Agenda agenda;
 		
@@ -96,11 +99,13 @@ public class Controlador implements ActionListener {
 				this.llenarTabla();
 			}
 			else if (e.getSource() == this.vista.getBtnEditar()) {
-				this.modoEdicion = true;
-				this.ventanaPersona = new VentanaPersona(this);
-				this.llenarComboBoxTiposContacto();
-				this.llenarComboBoxLocalidades();
-				llenarCamposPersona();
+				if(this.vista.getTablaPersonas().getSelectedRow() > -1) {
+					this.modoEdicionContacto = true;
+					this.ventanaPersona = new VentanaPersona(this);
+					this.llenarComboBoxTiposContacto();
+					this.llenarComboBoxLocalidades();
+					llenarCamposPersona();
+				}
 			}
 			
 			else if(e.getSource() == this.vista.getBtnReporte()) {				
@@ -122,9 +127,6 @@ public class Controlador implements ActionListener {
 			}
 			
 			
-			
-			
-			
 			else if(this.ventanaTipoContacto != null && e.getSource() == this.ventanaTipoContacto.getBtnBorrar()) {
 				int[] filas_seleccionadas = this.ventanaTipoContacto.getTablaTiposContacto().getSelectedRows();
 				for (int fila:filas_seleccionadas) {
@@ -141,11 +143,12 @@ public class Controlador implements ActionListener {
 			
 			else if(this.dialogoNuevoTipoContacto != null && e.getSource() == this.dialogoNuevoTipoContacto.getBtnAgregar()) {
 				TipoContactoDTO nuevoTipoContacto;
-				if(this.modoEdicion) {
+				if(this.modoEdicionTipoContacto) {
 					nuevoTipoContacto = new TipoContactoDTO(	tipoContactoDTOSeleccionado.getIdTipoContacto(),
 																dialogoNuevoTipoContacto.getInput().getText());
 					this.agenda.updateTipoContacto(nuevoTipoContacto);
 					nuevoTipoContacto = null;
+					modoEdicionTipoContacto = false;
 				}
 				else {
 					this.agenda.agregarTipoContacto(new TipoContactoDTO(0, this.dialogoNuevoTipoContacto.getInput().getText()));
@@ -162,7 +165,7 @@ public class Controlador implements ActionListener {
 			
 			else if(e.getSource() == this.ventanaPersona.getBtnAgregarPersona()) {
 				PersonaDTO nuevaPersona;
-				if(this.modoEdicion) {
+				if(this.modoEdicionContacto) {
 					nuevaPersona = new PersonaDTO(	personaSeleccionada.getIdPersona(),
 													ventanaPersona.getTxtNombre().getText(),
 													ventanaPersona.getTxtTelefono().getText(),
@@ -195,19 +198,23 @@ public class Controlador implements ActionListener {
 				}
 				this.llenarTabla();
 				this.ventanaPersona.dispose();
-				this.modoEdicion = false;
+				this.modoEdicionContacto = false;
 			}
 			
 			else if(this.ventanaLocalidad != null  && e.getSource() == this.ventanaLocalidad.getBtnEditar()) {
-				this.dialogoNuevaLocalidad = new DialogoNuevaLocalidad(this);
-				this.modoEdicion = true;
-				llenarCampoLocalidad();
+				if(this.ventanaLocalidad.getTablaLocalidades().getSelectedRow() > -1) {
+					this.modoEdicionLocalidad = true;
+					this.dialogoNuevaLocalidad = new DialogoNuevaLocalidad(this);
+					llenarCampoLocalidad();
+				}
 			}
 			
 			else if(this.ventanaTipoContacto != null  && e.getSource() == this.ventanaTipoContacto.getBtnEditar()) {
-				this.dialogoNuevoTipoContacto= new DialogoNuevoTipoContacto(this);
-				this.modoEdicion = true;
-				llenarCampoTipoContacto();
+				if(this.ventanaTipoContacto.getTablaTiposContacto().getSelectedRow() > -1) {
+					this.modoEdicionTipoContacto = true;
+					this.dialogoNuevoTipoContacto= new DialogoNuevoTipoContacto(this);
+					llenarCampoTipoContacto();
+				}
 			}
 			
 			
@@ -229,11 +236,12 @@ public class Controlador implements ActionListener {
 			
 			else if(this.dialogoNuevaLocalidad != null && e.getSource() == this.dialogoNuevaLocalidad.getBtnAgregar()) {
 				LocalidadDTO nuevaLocalidad;
-				if(this.modoEdicion) {
+				if(this.modoEdicionLocalidad) {
 					nuevaLocalidad = new LocalidadDTO(	localidadSeleccionada.getIdLocalidad(),
 														dialogoNuevaLocalidad.getInput().getText());
 					this.agenda.updateLocalidad(nuevaLocalidad);
 					localidadSeleccionada = null;
+					this.modoEdicionLocalidad = false;
 				}
 				else {
 					this.agenda.agregarLocalidad(new LocalidadDTO(0, this.dialogoNuevaLocalidad.getInput().getText()));
@@ -272,6 +280,7 @@ public class Controlador implements ActionListener {
 			this.ventanaPersona.getTxtDepto().setText(personaDTO.getDepto());
 			
 			this.personaSeleccionada = personaDTO;
+			
 			
 		}
 		
