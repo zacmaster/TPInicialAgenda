@@ -139,7 +139,6 @@ public class PersonaDAOSQL implements PersonaDAO {
 			statement.setString(10, persona.getTipoContacto());
 			statement.setInt(11, persona.getIdPersona());
 			
-			System.out.println(statement.toString());
 			chequeoUpdate = statement.executeUpdate();
 			if(chequeoUpdate > 0) //Si se ejecutó devuelvo true
 				return true;

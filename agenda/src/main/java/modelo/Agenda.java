@@ -43,6 +43,9 @@ public class Agenda {
 		this.persona.update(personaDTO);
 	}
 	
+	public void updateLocalidad(LocalidadDTO localidadDTO) {
+		this.localidad.update(localidadDTO);
+	}
 	
 	public void agregarLocalidad(LocalidadDTO nuevaLocalidad) {
 		this.localidad.insert(nuevaLocalidad);

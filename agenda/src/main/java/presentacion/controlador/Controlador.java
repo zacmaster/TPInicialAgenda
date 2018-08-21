@@ -37,6 +37,7 @@ public class Controlador implements ActionListener {
 		
 		
 		private PersonaDTO personaSeleccionada;
+		private LocalidadDTO localidadSeleccionada;
 		
 		private boolean modoEdicion = false;
 		
@@ -151,7 +152,7 @@ public class Controlador implements ActionListener {
 				PersonaDTO nuevaPersona;
 				if(this.modoEdicion) {
 					nuevaPersona = new PersonaDTO(	personaSeleccionada.getIdPersona(),
-													this.ventanaPersona.getTxtNombre().getText(),
+													ventanaPersona.getTxtNombre().getText(),
 													ventanaPersona.getTxtTelefono().getText(),
 													ventanaPersona.getTxtCalle().getText(),
 													Integer.parseInt(ventanaPersona.getTxtAltura().getText()),
@@ -187,10 +188,8 @@ public class Controlador implements ActionListener {
 			
 			else if(this.ventanaLocalidad != null  && e.getSource() == this.ventanaLocalidad.getBtnEditar()) {
 				this.dialogoNuevaLocalidad = new DialogoNuevaLocalidad(this);
-				int[] filas_seleccionadas = this.ventanaLocalidad.getTablaLocalidades().getSelectedRows();
-				for (int fila:filas_seleccionadas) {
-					this.dialogoNuevaLocalidad.getInput().setText(this.localidades_en_tabla.get(fila).getNombreLocalidad());
-				}
+				this.modoEdicion = true;
+				llenarCampoLocalidad();
 			}
 			
 			else if(this.ventanaLocalidad != null && e.getSource() == this.ventanaLocalidad.getBtnBorrar()) {
@@ -208,9 +207,18 @@ public class Controlador implements ActionListener {
 			}
 			
 			else if(this.dialogoNuevaLocalidad != null && e.getSource() == this.dialogoNuevaLocalidad.getBtnAgregar()) {
-				
-				this.agenda.agregarLocalidad(new LocalidadDTO(0, this.dialogoNuevaLocalidad.getInput().getText()));
+				LocalidadDTO nuevaLocalidad;
+				if(this.modoEdicion) {
+					nuevaLocalidad = new LocalidadDTO(	localidadSeleccionada.getIdLocalidad(),
+														dialogoNuevaLocalidad.getInput().getText());
+					this.agenda.updateLocalidad(nuevaLocalidad);
+					localidadSeleccionada = null;
+				}
+				else {
+					this.agenda.agregarLocalidad(new LocalidadDTO(0, this.dialogoNuevaLocalidad.getInput().getText()));
+				}
 				this.llenarTablaLocalidades();
+				this.llenarTabla();
 				this.llenarComboBoxLocalidades();
 				this.dialogoNuevaLocalidad.dispose();
 			}
@@ -240,11 +248,18 @@ public class Controlador implements ActionListener {
 			
 			this.personaSeleccionada = personaDTO;
 			
+		}
+		
+		
+		
+		
+		
+		private void llenarCampoLocalidad() {
 			
-			
-			
-			
-			
+			int fila = this.ventanaLocalidad.getTablaLocalidades().getSelectedRow();
+			LocalidadDTO localidadDTO = this.localidades_en_tabla.get(fila);
+			this.dialogoNuevaLocalidad.getInput().setText(localidadDTO.getNombreLocalidad());
+			this.localidadSeleccionada = localidadDTO;
 		}
 		
 

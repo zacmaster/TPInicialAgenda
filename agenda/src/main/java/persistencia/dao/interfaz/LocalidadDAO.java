@@ -10,6 +10,8 @@ public interface LocalidadDAO {
 
 	public boolean delete(LocalidadDTO persona_a_eliminar);
 	
+	public boolean update(LocalidadDTO localidad);
+	
 	public List<LocalidadDTO> readAll();
 	
 }
