@@ -129,10 +129,7 @@ public class VentanaPersona extends JFrame {
 
 
 	public void setComboTipoContactos(JComboBox<String> comboTipoContactos) {
-		System.out.println(comboTipoContactos.getModel().getSize());
-		System.out.println("Dentro de setcombo");
 		this.comboTipoContactos = comboTipoContactos;
-		System.out.println(this.comboTipoContactos.getModel().getSize());
 		this.comboTipoContactos.repaint();
 	}
 

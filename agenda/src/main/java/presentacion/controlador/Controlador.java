@@ -38,6 +38,7 @@ public class Controlador implements ActionListener {
 		
 		private PersonaDTO personaSeleccionada;
 		private LocalidadDTO localidadSeleccionada;
+		private TipoContactoDTO tipoContactoDTOSeleccionado;
 		
 		private boolean modoEdicion = false;
 		
@@ -139,8 +140,19 @@ public class Controlador implements ActionListener {
 			}
 			
 			else if(this.dialogoNuevoTipoContacto != null && e.getSource() == this.dialogoNuevoTipoContacto.getBtnAgregar()) {
-				this.agenda.agregarTipoContacto(new TipoContactoDTO(0, this.dialogoNuevoTipoContacto.getInput().getText()));
+				TipoContactoDTO nuevoTipoContacto;
+				if(this.modoEdicion) {
+					nuevoTipoContacto = new TipoContactoDTO(	tipoContactoDTOSeleccionado.getIdTipoContacto(),
+																dialogoNuevoTipoContacto.getInput().getText());
+					this.agenda.updateTipoContacto(nuevoTipoContacto);
+					nuevoTipoContacto = null;
+				}
+				else {
+					this.agenda.agregarTipoContacto(new TipoContactoDTO(0, this.dialogoNuevoTipoContacto.getInput().getText()));
+					
+				}
 				this.llenarTablaTiposContacto();
+				this.llenarTabla();
 				this.llenarComboBoxTiposContacto();
 				this.dialogoNuevoTipoContacto.dispose();
 			}
@@ -192,6 +204,15 @@ public class Controlador implements ActionListener {
 				llenarCampoLocalidad();
 			}
 			
+			else if(this.ventanaTipoContacto != null  && e.getSource() == this.ventanaTipoContacto.getBtnEditar()) {
+				this.dialogoNuevoTipoContacto= new DialogoNuevoTipoContacto(this);
+				this.modoEdicion = true;
+				llenarCampoTipoContacto();
+			}
+			
+			
+			
+			
 			else if(this.ventanaLocalidad != null && e.getSource() == this.ventanaLocalidad.getBtnBorrar()) {
 				int[] filas_seleccionadas = this.ventanaLocalidad.getTablaLocalidades().getSelectedRows();
 				for (int fila:filas_seleccionadas) {
@@ -222,6 +243,10 @@ public class Controlador implements ActionListener {
 				this.llenarComboBoxLocalidades();
 				this.dialogoNuevaLocalidad.dispose();
 			}
+			
+			
+			
+			
 			
 		}
 		
@@ -260,6 +285,13 @@ public class Controlador implements ActionListener {
 			LocalidadDTO localidadDTO = this.localidades_en_tabla.get(fila);
 			this.dialogoNuevaLocalidad.getInput().setText(localidadDTO.getNombreLocalidad());
 			this.localidadSeleccionada = localidadDTO;
+		}
+		private void llenarCampoTipoContacto() {
+			
+			int fila = this.ventanaTipoContacto.getTablaTiposContacto().getSelectedRow();
+			TipoContactoDTO tipoContactoDTO = this.tiposContacto_en_tabla.get(fila);
+			this.dialogoNuevoTipoContacto.getInput().setText(tipoContactoDTO.getTipoContacto());
+			this.tipoContactoDTOSeleccionado = tipoContactoDTO;
 		}
 		
 

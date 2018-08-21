@@ -47,6 +47,10 @@ public class Agenda {
 		this.localidad.update(localidadDTO);
 	}
 	
+	public void updateTipoContacto(TipoContactoDTO tipoContactoDTO) {
+		this.tipo_contacto.update(tipoContactoDTO);
+	}
+	
 	public void agregarLocalidad(LocalidadDTO nuevaLocalidad) {
 		this.localidad.insert(nuevaLocalidad);
 	}

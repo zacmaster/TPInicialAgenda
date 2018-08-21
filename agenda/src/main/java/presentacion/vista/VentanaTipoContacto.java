@@ -101,6 +101,7 @@ private static final long serialVersionUID = 1L;
     private void addListeners() {
     	btnNuevo.addActionListener(controlador);
     	btnBorrar.addActionListener(controlador);
+    	btnEditar.addActionListener(controlador);
     }
    
 
@@ -128,7 +129,12 @@ private static final long serialVersionUID = 1L;
 	public String[] getNombreColumnas() {
 		return nombreColumnas;
 	}
+
+	public JButton getBtnEditar() {
+		return btnEditar;
+	}
     
+	
 	
 
 
