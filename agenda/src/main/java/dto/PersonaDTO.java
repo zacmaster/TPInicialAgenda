@@ -5,15 +5,15 @@ public class PersonaDTO {
 	private String nombre;
 	private String telefono;
 	private String calle;
-	private String altura;
-	private String piso;
+	private int altura;
+	private int piso;
 	private String depto;
 	private String localidad;
 	private String correo;
 	private String fecha_nacimiento;
 	private String tipo_contacto;
 
-	public PersonaDTO(int idPersona, String nombre, String telefono, String calle, String altura, String piso, String depto, String localidad, String correo, String fecha_nacimiento, String tipo_contacto) {
+	public PersonaDTO(int idPersona, String nombre, String telefono, String calle, int altura, int piso, String depto, String localidad, String correo, String fecha_nacimiento, String tipo_contacto) {
 		this.idPersona = idPersona;
 		this.nombre = nombre;
 		this.telefono = telefono;
@@ -59,19 +59,19 @@ public class PersonaDTO {
 		this.calle = calle;
 	}
 
-	public String getAltura() {
+	public int getAltura() {
 		return altura;
 	}
 
-	public void setAltura(String altura) {
+	public void setAltura(int altura) {
 		this.altura = altura;
 	}
 
-	public String getPiso() {
+	public int getPiso() {
 		return piso;
 	}
 
-	public void setPiso(String piso) {
+	public void setPiso(int piso) {
 		this.piso = piso;
 	}
 

@@ -52,7 +52,7 @@ public class Controlador implements ActionListener {
 			
 			this.personas_en_tabla = agenda.obtenerPersonas();
 			for (int i = 0; i < this.personas_en_tabla.size(); i ++) {
-				Object[] fila = {this.personas_en_tabla.get(i).getNombre(), this.personas_en_tabla.get(i).getTelefono(), this.personas_en_tabla.get(i)};
+				Object[] fila = {this.personas_en_tabla.get(i).getNombre(), this.personas_en_tabla.get(i).getTelefono(), this.personas_en_tabla.get(i).getCorreo(), this.personas_en_tabla.get(i).getTipoContacto(), this.personas_en_tabla.get(i).getFechaNacimiento(), this.personas_en_tabla.get(i).getLocalidad(), this.personas_en_tabla.get(i).getCalle(), this.personas_en_tabla.get(i).getAltura(), this.personas_en_tabla.get(i).getPiso(), this.personas_en_tabla.get(i).getDepto()};
 				this.vista.getModelPersonas().addRow(fila);
 			}			
 		}
@@ -114,12 +114,14 @@ public class Controlador implements ActionListener {
 			
 			
 			else if(e.getSource() == this.ventanaPersona.getBtnAgregarPersona()) {
+				System.out.println("prueba");
+				System.out.println(ventanaPersona.getFechaNac());
 				PersonaDTO nuevaPersona = new PersonaDTO(	0,
 															this.ventanaPersona.getTxtNombre().getText(),
 															ventanaPersona.getTxtTelefono().getText(),
 															ventanaPersona.getTxtCalle().getText(),
-															ventanaPersona.getTxtAltura().getText(),
-															ventanaPersona.getTxtPiso().getText(), 
+															Integer.getInteger(ventanaPersona.getTxtAltura().getText()),
+															Integer.getInteger(ventanaPersona.getTxtPiso().getText()), 
 															ventanaPersona.getTxtDepto().getText(),
 															ventanaPersona.getTxtLocalidad(),
 															ventanaPersona.getTxtEmail().getText(),
