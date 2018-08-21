@@ -227,9 +227,9 @@ public class VentanaPersona extends JFrame {
 		restriccionNombre.setLimit(11);
 		restriccionNombre.setOnlyText(true);
 		
-		RestrictedTextField restriccionTelefono = new RestrictedTextField(textFields.get(1),"0123456789-");
+		RestrictedTextField restriccionTelefono = new RestrictedTextField(textFields.get(1));
 		restriccionTelefono.setLimit(20);
-		restriccionTelefono.setOnlyCustomCharacters(true);
+		restriccionTelefono.setOnlyNums(true);
 		
 		RestrictedTextField restriccionEmail = new RestrictedTextField(textFields.get(2));
 		restriccionEmail.setLimit(20);
@@ -244,22 +244,23 @@ public class VentanaPersona extends JFrame {
 		
 		RestrictedTextField restriccionPiso = new RestrictedTextField(textFields.get(5));
 		restriccionPiso.setLimit(2);
-		restriccionAltura.setOnlyNums(true);
+		restriccionPiso.setOnlyNums(true);
 		
 		
 		RestrictedTextField restriccionDepto = new RestrictedTextField(textFields.get(6));
-		restriccionDepto.setOnlyAlphaNumeric(true);
 		restriccionDepto.setLimit(2);
-		
-		
-		
-		
-		
-		
 		
 		
 	}
 	
+	
+	
+	
+	public JDateChooser getDateChooser() {
+		return dateChooser;
+	}
+
+
 	//---------------------Getters--------------------
 	public JTextField getTxtNombre() {
 		return textFields.get(0);

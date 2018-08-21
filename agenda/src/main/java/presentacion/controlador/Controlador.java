@@ -2,6 +2,10 @@ package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -32,6 +36,9 @@ public class Controlador implements ActionListener {
 		private DialogoNuevoTipoContacto dialogoNuevoTipoContacto;
 		
 		
+		private PersonaDTO personaSeleccionada;
+		
+		private boolean modoEdicion = false;
 		
 		private Agenda agenda;
 		
@@ -87,9 +94,11 @@ public class Controlador implements ActionListener {
 				this.llenarTabla();
 			}
 			else if (e.getSource() == this.vista.getBtnEditar()) {
+				this.modoEdicion = true;
 				this.ventanaPersona = new VentanaPersona(this);
+				this.llenarComboBoxTiposContacto();
+				this.llenarComboBoxLocalidades();
 				llenarCamposPersona();
-//				seleccionarFilaEditar();
 			}
 			
 			else if(e.getSource() == this.vista.getBtnReporte()) {				
@@ -139,21 +148,41 @@ public class Controlador implements ActionListener {
 			
 			
 			else if(e.getSource() == this.ventanaPersona.getBtnAgregarPersona()) {
-				PersonaDTO nuevaPersona = new PersonaDTO(	0,
-															this.ventanaPersona.getTxtNombre().getText(),
-															ventanaPersona.getTxtTelefono().getText(),
-															ventanaPersona.getTxtCalle().getText(),
-															Integer.parseInt(ventanaPersona.getTxtAltura().getText()),
-															Integer.parseInt(ventanaPersona.getTxtPiso().getText()),
-															ventanaPersona.getTxtDepto().getText(),
-															ventanaPersona.getTxtLocalidad(),
-															ventanaPersona.getTxtEmail().getText(),
-															ventanaPersona.getFechaNac(),
-															ventanaPersona.getTipoContacto()
-															);
-				this.agenda.agregarPersona(nuevaPersona);
+				PersonaDTO nuevaPersona;
+				if(this.modoEdicion) {
+					nuevaPersona = new PersonaDTO(	personaSeleccionada.getIdPersona(),
+													this.ventanaPersona.getTxtNombre().getText(),
+													ventanaPersona.getTxtTelefono().getText(),
+													ventanaPersona.getTxtCalle().getText(),
+													Integer.parseInt(ventanaPersona.getTxtAltura().getText()),
+													Integer.parseInt(ventanaPersona.getTxtPiso().getText()),
+													ventanaPersona.getTxtDepto().getText(),
+													ventanaPersona.getTxtLocalidad(),
+													ventanaPersona.getTxtEmail().getText(),
+													ventanaPersona.getFechaNac(),
+													ventanaPersona.getTipoContacto());
+					
+					this.agenda.updatePersona(nuevaPersona);
+					personaSeleccionada = null;
+				}
+				else {
+					nuevaPersona = new PersonaDTO(	0,
+							this.ventanaPersona.getTxtNombre().getText(),
+							ventanaPersona.getTxtTelefono().getText(),
+							ventanaPersona.getTxtCalle().getText(),
+							Integer.parseInt(ventanaPersona.getTxtAltura().getText()),
+							Integer.parseInt(ventanaPersona.getTxtPiso().getText()),
+							ventanaPersona.getTxtDepto().getText(),
+							ventanaPersona.getTxtLocalidad(),
+							ventanaPersona.getTxtEmail().getText(),
+							ventanaPersona.getFechaNac(),
+							ventanaPersona.getTipoContacto()
+							);
+					this.agenda.agregarPersona(nuevaPersona);
+				}
 				this.llenarTabla();
 				this.ventanaPersona.dispose();
+				this.modoEdicion = false;
 			}
 			
 			else if(this.ventanaLocalidad != null  && e.getSource() == this.ventanaLocalidad.getBtnEditar()) {
@@ -189,15 +218,35 @@ public class Controlador implements ActionListener {
 		}
 		
 		private void llenarCamposPersona() {
+			int fila = this.vista.getTablaPersonas().getSelectedRow();
+			PersonaDTO personaDTO  = this.personas_en_tabla.get(fila);
+			
+			this.ventanaPersona.getTxtNombre().setText(personaDTO.getNombre());
+			this.ventanaPersona.getTxtTelefono().setText(personaDTO.getTelefono());
+			this.ventanaPersona.getTxtEmail().setText(personaDTO.getCorreo());
+			this.ventanaPersona.getComboTipoContactos().setSelectedItem(new String(personaDTO.getTipoContacto()));
+			
+			try {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				Date dateTemp = sdf.parse(personaDTO.getFechaNacimiento());
+				this.ventanaPersona.getDateChooser().setDate(dateTemp);
+			} catch (ParseException e) { e.printStackTrace(); }
+			
+			this.ventanaPersona.getComboLocalidades().setSelectedItem(new String(personaDTO.getLocalidad()));
+			this.ventanaPersona.getTxtCalle().setText(personaDTO.getCalle());
+			this.ventanaPersona.getTxtAltura().setText(Integer.toString(personaDTO.getAltura()));
+			this.ventanaPersona.getTxtPiso().setText(Integer.toString(personaDTO.getPiso()));
+			this.ventanaPersona.getTxtDepto().setText(personaDTO.getDepto());
+			
+			this.personaSeleccionada = personaDTO;
+			
+			
+			
+			
+			
 			
 		}
 		
-//		private void seleccionarFilaEditar() {
-//			int[] filas_seleccionadas = this.vista.getTablaPersonas().getSelectedRows();
-//			for (int fila:filas_seleccionadas) {
-//				
-//			}
-//		}
 
 		private void llenarTablaLocalidades() {
 			
