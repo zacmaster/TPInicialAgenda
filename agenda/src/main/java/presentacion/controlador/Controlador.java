@@ -72,6 +72,7 @@ public class Controlador implements ActionListener {
 			this.personas_en_tabla = agenda.obtenerPersonas();
 			for (int i = 0; i < this.personas_en_tabla.size(); i ++) {
 				Object[] fila = {	this.personas_en_tabla.get(i).getNombre(),
+									this.personas_en_tabla.get(i).getApellido(),
 									this.personas_en_tabla.get(i).getTelefono(),
 									this.personas_en_tabla.get(i).getCorreo(),
 									this.personas_en_tabla.get(i).getTipoContacto(),
@@ -112,7 +113,6 @@ public class Controlador implements ActionListener {
 				ReporteAgenda reporte = new ReporteAgenda(agenda.obtenerPersonas());
 				reporte.mostrar();				
 			}
-			
 			
 			
 			
@@ -168,6 +168,7 @@ public class Controlador implements ActionListener {
 				if(this.modoEdicionContacto) {
 					nuevaPersona = new PersonaDTO(	personaSeleccionada.getIdPersona(),
 													ventanaPersona.getTxtNombre().getText(),
+													ventanaPersona.getTxtApellido().getText(),
 													ventanaPersona.getTxtTelefono().getText(),
 													ventanaPersona.getTxtCalle().getText(),
 													Integer.parseInt(ventanaPersona.getTxtAltura().getText()),
@@ -184,6 +185,7 @@ public class Controlador implements ActionListener {
 				else {
 					nuevaPersona = new PersonaDTO(	0,
 							this.ventanaPersona.getTxtNombre().getText(),
+							ventanaPersona.getTxtApellido().getText(),
 							ventanaPersona.getTxtTelefono().getText(),
 							ventanaPersona.getTxtCalle().getText(),
 							Integer.parseInt(ventanaPersona.getTxtAltura().getText()),
@@ -263,6 +265,7 @@ public class Controlador implements ActionListener {
 			PersonaDTO personaDTO  = this.personas_en_tabla.get(fila);
 			
 			this.ventanaPersona.getTxtNombre().setText(personaDTO.getNombre());
+			this.ventanaPersona.getTxtApellido().setText(personaDTO.getApellido());
 			this.ventanaPersona.getTxtTelefono().setText(personaDTO.getTelefono());
 			this.ventanaPersona.getTxtEmail().setText(personaDTO.getCorreo());
 			this.ventanaPersona.getComboTipoContactos().setSelectedItem(new String(personaDTO.getTipoContacto()));

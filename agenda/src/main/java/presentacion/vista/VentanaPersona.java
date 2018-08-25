@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -23,7 +24,7 @@ import presentacion.controlador.Controlador;
 public class VentanaPersona extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
-	private final int altoVentana = 420;
+	private final int altoVentana = 450;
 	private final int anchoVentana = 380;
 	private int y_calle = 0;
 	private int y_localidad = 0;
@@ -32,7 +33,7 @@ public class VentanaPersona extends JFrame {
 	private JDateChooser dateChooser;
 	
 	
-	private String[] labels = {	"Nombre", "Teléfono", "Email",
+	private String[] labels = {	"Nombre", "Apellido", "Teléfono", "Email",
 								"Tipo de contacto", "Fecha cumpleaños", "Dirección",
 								"Localidad","Calle","Altura", "Piso", "Depto" };
 	
@@ -190,9 +191,9 @@ public class VentanaPersona extends JFrame {
 		int y = y_start;
 		int ancho = 180;
 		int alto = 20;
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < 8; i++) {
 			JTextField temp = new JTextField();
-			if(i == 3) {
+			if(i == 4) {
 				y = y_calle;
 			}
 			temp.setBounds(	x,
@@ -209,11 +210,11 @@ public class VentanaPersona extends JFrame {
 		
 		btnAgregarPersona = new JButton("Agregar");
 		btnAgregarPersona.addActionListener(this.controlador);
-		btnAgregarPersona.setBounds(220, this.altoVentana - 80, 89, 23);
+		btnAgregarPersona.setBounds(220, this.altoVentana - 70, 89, 23);
 		panel.add(btnAgregarPersona);
 		
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(	this.anchoVentana / 8, this.altoVentana - 80, 100, 23);
+		btnCancelar.setBounds(	this.anchoVentana / 8, this.altoVentana - 70, 100, 23);
 		btnCancelar.addActionListener( e -> dispose());
 		panel.add(btnCancelar);
 	}
@@ -224,27 +225,29 @@ public class VentanaPersona extends JFrame {
 		restriccionNombre.setLimit(11);
 		restriccionNombre.setOnlyText(true);
 		
-		RestrictedTextField restriccionTelefono = new RestrictedTextField(textFields.get(1));
+		RestrictedTextField restriccionApellido = new RestrictedTextField(textFields.get(1));
+		restriccionApellido.setLimit(11);
+		restriccionApellido.setOnlyText(true);
+		
+		RestrictedTextField restriccionTelefono = new RestrictedTextField(textFields.get(2));
 		restriccionTelefono.setLimit(20);
 		restriccionTelefono.setOnlyNums(true);
 		
-		RestrictedTextField restriccionEmail = new RestrictedTextField(textFields.get(2));
+		RestrictedTextField restriccionEmail = new RestrictedTextField(textFields.get(3));
 		restriccionEmail.setLimit(20);
 		
-		RestrictedTextField restriccionCalle = new RestrictedTextField(textFields.get(3));
+		RestrictedTextField restriccionCalle = new RestrictedTextField(textFields.get(4));
 		restriccionCalle.setLimit(30);
 		
-		RestrictedTextField restriccionAltura = new RestrictedTextField(textFields.get(4));
+		RestrictedTextField restriccionAltura = new RestrictedTextField(textFields.get(5));
 		restriccionAltura.setLimit(4);
 		restriccionAltura.setOnlyNums(true);
 		
-		
-		RestrictedTextField restriccionPiso = new RestrictedTextField(textFields.get(5));
+		RestrictedTextField restriccionPiso = new RestrictedTextField(textFields.get(6));
 		restriccionPiso.setLimit(2);
 		restriccionPiso.setOnlyNums(true);
 		
-		
-		RestrictedTextField restriccionDepto = new RestrictedTextField(textFields.get(6));
+		RestrictedTextField restriccionDepto = new RestrictedTextField(textFields.get(7));
 		restriccionDepto.setLimit(2);
 		
 		
@@ -263,27 +266,33 @@ public class VentanaPersona extends JFrame {
 		return textFields.get(0);
 	}
 
-	public JTextField getTxtTelefono() {
+	public JTextField getTxtApellido() {
 		return textFields.get(1);
 	}
-	
-	public JTextField getTxtEmail() {
+
+	public JTextField getTxtTelefono() {
 		return textFields.get(2);
 	}
 	
-	public JTextField getTxtCalle() {
+	public JTextField getTxtEmail() {
 		return textFields.get(3);
 	}
 	
-	public JTextField getTxtAltura() {
+	public JTextField getTxtCalle() {
 		return textFields.get(4);
 	}
-	public JTextField getTxtPiso() {
+	
+	public JTextField getTxtAltura() {
 		return textFields.get(5);
 	}
-	public JTextField getTxtDepto() {
+	public JTextField getTxtPiso() {
 		return textFields.get(6);
 	}
+	public JTextField getTxtDepto() {
+		return textFields.get(7);
+	}
+	
+	
 	public JButton getBtnAgregarPersona() {
 		return btnAgregarPersona;
 	}
@@ -318,9 +327,6 @@ public class VentanaPersona extends JFrame {
 
 	public JComboBox<String> getComboLocalidades() {
 		return comboLocalidades;
-	}
-
-	
-	
+	}	
 }
 

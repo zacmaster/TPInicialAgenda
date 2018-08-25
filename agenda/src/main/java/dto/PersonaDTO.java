@@ -12,10 +12,12 @@ public class PersonaDTO {
 	private String correo;
 	private String fecha_nacimiento;
 	private String tipo_contacto;
+	private String apellido;
 
-	public PersonaDTO(int idPersona, String nombre, String telefono, String calle, int altura, int piso, String depto, String localidad, String correo, String fecha_nacimiento, String tipo_contacto) {
+	public PersonaDTO(int idPersona, String nombre, String apellido, String telefono, String calle, int altura, int piso, String depto, String localidad, String correo, String fecha_nacimiento, String tipo_contacto) {
 		this.idPersona = idPersona;
 		this.nombre = nombre;
+		this.apellido = apellido;
 		this.telefono = telefono;
 		this.calle = calle;
 		this.altura = altura;
@@ -114,4 +116,13 @@ public class PersonaDTO {
 	public void setTipoContacto(String tipo_contacto) {
 		this.tipo_contacto = tipo_contacto;
 	}
+
+	public String getApellido() {
+		return apellido;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
 }

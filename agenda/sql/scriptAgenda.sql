@@ -20,6 +20,7 @@ CREATE TABLE `personas`
 (
     `idPersona` int(11) NOT NULL AUTO_INCREMENT,
     `Nombre` varchar(45) NOT NULL,
+    `Apellido` varchar(45) NOT NULL,
     `Fecha_Nacimiento` date, 
     `Correo` varchar(45),
     `Telefono` varchar(20) NOT NULL,

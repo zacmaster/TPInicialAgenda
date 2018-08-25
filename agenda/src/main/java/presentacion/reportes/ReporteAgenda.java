@@ -23,6 +23,7 @@ public class ReporteAgenda {
 	private JasperViewer reporteViewer;
 	private JasperPrint	reporteLleno;
 	private Logger log = Logger.getLogger(ReporteAgenda.class);
+	
 	//Recibe la lista de personas para armar el reporte
     public ReporteAgenda(List<PersonaDTO> personas) {
     	//Hardcodeado
