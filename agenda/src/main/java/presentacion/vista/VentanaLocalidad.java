@@ -85,6 +85,7 @@ public class VentanaLocalidad extends JFrame {
         modelLocalidad = new DefaultTableModel(null, nombreColumnas);
         
         tablaLocalidades = new JTable(modelLocalidad);
+        
         tablaLocalidades.setFillsViewportHeight(true);
         contenedorTabla.setBounds(10,11, 414, 182);
         contenedorTabla.setViewportView(tablaLocalidades);

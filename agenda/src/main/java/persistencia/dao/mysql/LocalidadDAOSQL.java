@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dto.LocalidadDTO;
-import dto.PersonaDTO;
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.LocalidadDAO;
 
@@ -15,9 +14,11 @@ public class LocalidadDAOSQL implements LocalidadDAO {
 	private static final String insert = "INSERT INTO localidad(idLocalidad, Localidad) VALUES(?, ?)";
 	private static final String delete = "DELETE FROM localidad WHERE idLocalidad = ?";
 	private static final String readall = "SELECT * FROM localidad";
+	private static final String update = "UPDATE localidad SET Localidad=? WHERE idLocalidad = ?";
+	
 	
 	public boolean insert(LocalidadDTO localidad) {
-		PreparedStatement statement;
+		PreparedStatement statement; 
 		Conexion conexion = Conexion.getConexion();
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(insert);
@@ -67,5 +68,24 @@ public class LocalidadDAOSQL implements LocalidadDAO {
 		}
 		return localidad;
 	}
+	
+	public boolean update(LocalidadDTO localidadDTO) {
+		PreparedStatement statement;
+		Conexion conexion = Conexion.getConexion();
+		try {
+			statement = conexion.getSQLConexion().prepareStatement(update);
+			statement.setString(1, localidadDTO.getNombreLocalidad());
+			statement.setLong(2, localidadDTO.getIdLocalidad());
+			return statement.executeUpdate() > 0;
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	
+	
+	
 
 }

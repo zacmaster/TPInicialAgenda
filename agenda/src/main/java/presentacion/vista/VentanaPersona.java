@@ -129,10 +129,7 @@ public class VentanaPersona extends JFrame {
 
 
 	public void setComboTipoContactos(JComboBox<String> comboTipoContactos) {
-		System.out.println(comboTipoContactos.getModel().getSize());
-		System.out.println("Dentro de setcombo");
 		this.comboTipoContactos = comboTipoContactos;
-		System.out.println(this.comboTipoContactos.getModel().getSize());
 		this.comboTipoContactos.repaint();
 	}
 
@@ -227,9 +224,9 @@ public class VentanaPersona extends JFrame {
 		restriccionNombre.setLimit(11);
 		restriccionNombre.setOnlyText(true);
 		
-		RestrictedTextField restriccionTelefono = new RestrictedTextField(textFields.get(1),"0123456789-");
+		RestrictedTextField restriccionTelefono = new RestrictedTextField(textFields.get(1));
 		restriccionTelefono.setLimit(20);
-		restriccionTelefono.setOnlyCustomCharacters(true);
+		restriccionTelefono.setOnlyNums(true);
 		
 		RestrictedTextField restriccionEmail = new RestrictedTextField(textFields.get(2));
 		restriccionEmail.setLimit(20);
@@ -244,22 +241,23 @@ public class VentanaPersona extends JFrame {
 		
 		RestrictedTextField restriccionPiso = new RestrictedTextField(textFields.get(5));
 		restriccionPiso.setLimit(2);
-		restriccionAltura.setOnlyNums(true);
+		restriccionPiso.setOnlyNums(true);
 		
 		
 		RestrictedTextField restriccionDepto = new RestrictedTextField(textFields.get(6));
-		restriccionDepto.setOnlyAlphaNumeric(true);
 		restriccionDepto.setLimit(2);
-		
-		
-		
-		
-		
-		
 		
 		
 	}
 	
+	
+	
+	
+	public JDateChooser getDateChooser() {
+		return dateChooser;
+	}
+
+
 	//---------------------Getters--------------------
 	public JTextField getTxtNombre() {
 		return textFields.get(0);
@@ -299,13 +297,8 @@ public class VentanaPersona extends JFrame {
 		return String.valueOf(comboLocalidades.getSelectedItem());
 	}
 
-	public JTextField getTxtTipoContacto() {
-		return null;
-	}
-
-
 	public JTextField getTxtCorreo() {
-		return null;
+		return textFields.get(2);
 	}
 	
 	public String getFechaNac() {
@@ -315,7 +308,7 @@ public class VentanaPersona extends JFrame {
 	}
 	
 	public String getTipoContacto() {
-		return "";
+		return comboTipoContactos.getSelectedItem().toString();
 	}
 	
 	public JButton getABMTipoContacto() {

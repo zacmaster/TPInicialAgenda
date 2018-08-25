@@ -35,6 +35,22 @@ public class Agenda {
 		return this.persona.readAll();		
 	}
 	
+	public PersonaDTO getPersona(int idPersona) {
+		return this.persona.get(idPersona);
+	}
+	
+	public void updatePersona(PersonaDTO personaDTO) {
+		this.persona.update(personaDTO);
+	}
+	
+	public void updateLocalidad(LocalidadDTO localidadDTO) {
+		this.localidad.update(localidadDTO);
+	}
+	
+	public void updateTipoContacto(TipoContactoDTO tipoContactoDTO) {
+		this.tipo_contacto.update(tipoContactoDTO);
+	}
+	
 	public void agregarLocalidad(LocalidadDTO nuevaLocalidad) {
 		this.localidad.insert(nuevaLocalidad);
 	}

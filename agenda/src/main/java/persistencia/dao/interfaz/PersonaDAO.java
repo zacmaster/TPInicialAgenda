@@ -12,5 +12,7 @@ public interface PersonaDAO {
 	
 	public List<PersonaDTO> readAll();
 	
+	public PersonaDTO get(int idPersona);
+	
 	public boolean update(PersonaDTO persona_a_eliminar);
 }

@@ -72,6 +72,7 @@ public class Vista {
 		btnReporte = new JButton("Reporte");
 		btnReporte.setBounds(307, 228, 89, 23);
 		panel.add(btnReporte);
+		frame.setResizable(false);
 	}
 	
 	public void show() {
