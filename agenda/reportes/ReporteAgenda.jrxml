@@ -15,16 +15,26 @@
 	<field name="idPersona" class="java.lang.Integer">
 		<fieldDescription><![CDATA[idPersona]]></fieldDescription>
 	</field>
-	<field name="contador" class="dto.PersonaDTO">
-		<fieldDescription><![CDATA[contador]]></fieldDescription>
+	<field name="correo" class="java.lang.String">
+		<fieldDescription><![CDATA[correo]]></fieldDescription>
+	</field>
+	<field name="telefono" class="java.lang.String">
+		<fieldDescription><![CDATA[telefono]]></fieldDescription>
 	</field>
 	<sortField name="apellido"/>
+	<variable name="Variable_1" class="java.lang.Integer" calculation="DistinctCount">
+		<variableExpression><![CDATA[$F{nombre}.charAt( 0 )]]></variableExpression>
+	</variable>
 	<group name="Group1">
 		<groupExpression><![CDATA[$F{apellido}.charAt(0)]]></groupExpression>
 		<groupHeader>
-			<band height="74">
+			<band height="20">
+				<rectangle>
+					<reportElement x="10" y="0" width="510" height="20" backcolor="#F7F7F7" uuid="29dc2671-0bdd-485c-b74f-62f83b84428b"/>
+				</rectangle>
 				<textField>
-					<reportElement x="1" y="57" width="100" height="17" uuid="5e2c0854-8eba-4658-9dc8-c2c396b96832"/>
+					<reportElement x="39" y="0" width="100" height="20" backcolor="#EBEBEB" uuid="5e2c0854-8eba-4658-9dc8-c2c396b96832"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{apellido}.charAt( 0 )]]></textFieldExpression>
 				</textField>
 			</band>
@@ -37,7 +47,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="45" splitType="Stretch">
+		<band height="40" splitType="Stretch">
 			<frame>
 				<reportElement x="0" y="0" width="550" height="40" uuid="fbf866cd-64dc-4043-b98c-ed8d9f31d19c"/>
 				<staticText>
@@ -59,9 +69,9 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="36" splitType="Stretch">
+		<band height="28" splitType="Stretch">
 			<frame>
-				<reportElement x="0" y="4" width="550" height="24" uuid="d078763f-d7ce-421d-8cc3-c9d81fe255f9"/>
+				<reportElement x="0" y="4" width="550" height="24" backcolor="#FC0703" uuid="d078763f-d7ce-421d-8cc3-c9d81fe255f9"/>
 				<staticText>
 					<reportElement x="3" y="2" width="160" height="20" uuid="8bd693bf-e003-4042-a1f8-881763b9ba1e"/>
 					<text><![CDATA[Reporte para el ejemplo Agenda]]></text>
@@ -70,31 +80,81 @@
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="29" splitType="Stretch">
-			<frame>
-				<reportElement x="2" y="6" width="550" height="23" uuid="23209a62-cc9d-4b81-8e93-aa9cc3a92b36"/>
-				<staticText>
-					<reportElement x="107" y="-6" width="100" height="29" uuid="d1b074dc-0658-4366-95b9-139299ef6cb8">
-						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c291a273-e443-4e00-95d2-3ae3f98232b7"/>
-					</reportElement>
-					<text><![CDATA[apellido]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="1" y="-3" width="100" height="29" uuid="49f2476b-0c82-43d7-90a2-8f774c8c36c3">
-						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c291a273-e443-4e00-95d2-3ae3f98232b7"/>
-					</reportElement>
-					<text><![CDATA[Inicial]]></text>
-				</staticText>
-			</frame>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="120" y="0" width="100" height="20" uuid="d1b074dc-0658-4366-95b9-139299ef6cb8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c291a273-e443-4e00-95d2-3ae3f98232b7"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="0" width="100" height="20" uuid="823aca48-bb0a-45eb-bec9-5760355b57ee"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Inicial]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="220" y="0" width="100" height="20" uuid="ae3b1abe-1e5e-44e2-98cb-6c20c94ad4e1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c291a273-e443-4e00-95d2-3ae3f98232b7"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="0" width="100" height="20" uuid="c7080920-061b-4dfd-9ec6-8e2d185d9bf7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c291a273-e443-4e00-95d2-3ae3f98232b7"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Telefono]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="0" width="100" height="20" uuid="ff09b341-7823-4ff6-b554-935bc15911d3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c291a273-e443-4e00-95d2-3ae3f98232b7"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Correo]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="36" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="109" y="6" width="100" height="30" uuid="4b5064bc-6aa7-440b-94c8-e46628f55194">
+				<reportElement x="122" y="0" width="100" height="20" uuid="4b5064bc-6aa7-440b-94c8-e46628f55194">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c291a273-e443-4e00-95d2-3ae3f98232b7"/>
 				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{apellido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="222" y="0" width="98" height="20" uuid="b6277f02-2a40-47bc-ac4a-a9f0f59da338">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3bf56af5-cfed-45c5-8745-62e708fee6d7"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="0" width="100" height="20" uuid="bb8e4bae-5fc6-4c7d-aa28-58eead45901d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b878cdfe-1505-4dd5-a53e-261adc06401d"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="0" width="100" height="20" uuid="1fb7394c-0cec-4be5-bb37-1dd06e230ace">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dfb3a161-237f-4359-b297-9e5b3b52cae3"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{correo}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -102,7 +162,7 @@
 		<band height="7" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="33" splitType="Stretch">
+		<band height="30" splitType="Stretch">
 			<textField>
 				<reportElement x="355" y="0" width="100" height="30" uuid="5ce007da-8e81-48b7-91fd-8e603c20d7ef"/>
 				<textElement textAlignment="Right"/>
@@ -115,4 +175,29 @@
 			</textField>
 		</band>
 	</pageFooter>
+	<summary>
+		<band height="210">
+			<pieChart>
+				<chart evaluationTime="Report">
+					<reportElement x="180" y="10" width="200" height="200" uuid="6aa57a79-8677-492a-89a7-8051093bafcd"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{apellido}.charAt( 0 )]]></keyExpression>
+					<valueExpression><![CDATA[$V{Group1_COUNT}]]></valueExpression>
+					<labelExpression><![CDATA["valor: "+$V{Group1_COUNT}]]></labelExpression>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+			<textField>
+				<reportElement x="20" y="20" width="143" height="30" uuid="eb5e90fd-da52-41fe-bd7a-e35437856ff7"/>
+				<textFieldExpression><![CDATA["Total de Contactos: "+$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
 </jasperReport>
