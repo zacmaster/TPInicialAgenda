@@ -7,7 +7,7 @@ CREATE TABLE `tipo_contacto`
     `idTipoContacto` int(2) NOT NULL AUTO_INCREMENT,
     `Tipo_Contacto` varchar(45) NOT NULL,
     PRIMARY KEY (`idTipoContacto`)
-);
+);	
 
 CREATE TABLE `localidad`
 (

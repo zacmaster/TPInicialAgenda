@@ -12,23 +12,26 @@
 	<field name="apellido" class="java.lang.String">
 		<fieldDescription><![CDATA[apellido]]></fieldDescription>
 	</field>
+	<field name="idPersona" class="java.lang.Integer">
+		<fieldDescription><![CDATA[idPersona]]></fieldDescription>
+	</field>
+	<field name="contador" class="dto.PersonaDTO">
+		<fieldDescription><![CDATA[contador]]></fieldDescription>
+	</field>
+	<sortField name="apellido"/>
 	<group name="Group1">
-		<groupExpression><![CDATA[$F{apellido}.charAt( 1 )]]></groupExpression>
-	</group>
-	<group name="Inicial">
-		<groupExpression><![CDATA[$F{apellido}.charAt( 0 )]]></groupExpression>
+		<groupExpression><![CDATA[$F{apellido}.charAt(0)]]></groupExpression>
 		<groupHeader>
-			<band height="50">
+			<band height="74">
 				<textField>
-					<reportElement x="280" y="10" width="280" height="18" uuid="4a345b01-b751-4529-b6d6-2ccf3c13ff66"/>
-					<textFieldExpression><![CDATA[$F{apellido}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="0" y="10" width="280" height="18" uuid="1b408292-2e22-472f-ad66-f4ef4f481b45"/>
-					<textFieldExpression><![CDATA[$F{nombre}.charAt( 0 )]]></textFieldExpression>
+					<reportElement x="1" y="57" width="100" height="17" uuid="5e2c0854-8eba-4658-9dc8-c2c396b96832"/>
+					<textFieldExpression><![CDATA[$F{apellido}.charAt( 0 )]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
+		<groupFooter>
+			<band height="24"/>
+		</groupFooter>
 	</group>
 	<background>
 		<band splitType="Stretch"/>
@@ -67,30 +70,32 @@
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="31" splitType="Stretch">
+		<band height="29" splitType="Stretch">
 			<frame>
 				<reportElement x="2" y="6" width="550" height="23" uuid="23209a62-cc9d-4b81-8e93-aa9cc3a92b36"/>
+				<staticText>
+					<reportElement x="107" y="-6" width="100" height="29" uuid="d1b074dc-0658-4366-95b9-139299ef6cb8">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c291a273-e443-4e00-95d2-3ae3f98232b7"/>
+					</reportElement>
+					<text><![CDATA[apellido]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1" y="-3" width="100" height="29" uuid="49f2476b-0c82-43d7-90a2-8f774c8c36c3">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c291a273-e443-4e00-95d2-3ae3f98232b7"/>
+					</reportElement>
+					<text><![CDATA[Inicial]]></text>
+				</staticText>
 			</frame>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="277" splitType="Stretch">
-			<pieChart>
-				<chart evaluationTime="Report">
-					<reportElement x="182" y="77" width="200" height="200" uuid="5ac669b6-c38c-441b-a465-39366bebbea5"/>
-					<chartTitle/>
-					<chartSubtitle/>
-					<chartLegend/>
-				</chart>
-				<pieDataset>
-					<keyExpression><![CDATA[$F{apellido}.charAt( 0 )]]></keyExpression>
-					<valueExpression><![CDATA[1]]></valueExpression>
-				</pieDataset>
-				<piePlot>
-					<plot/>
-					<itemLabel/>
-				</piePlot>
-			</pieChart>
+		<band height="36" splitType="Stretch">
+			<textField>
+				<reportElement x="109" y="6" width="100" height="30" uuid="4b5064bc-6aa7-440b-94c8-e46628f55194">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c291a273-e443-4e00-95d2-3ae3f98232b7"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{apellido}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>
