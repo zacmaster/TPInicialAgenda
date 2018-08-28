@@ -22,13 +22,14 @@
 		<fieldDescription><![CDATA[telefono]]></fieldDescription>
 	</field>
 	<sortField name="apellido"/>
+	<sortField name="nombre"/>
 	<variable name="Variable_1" class="java.lang.Integer" calculation="DistinctCount">
 		<variableExpression><![CDATA[$F{nombre}.charAt( 0 )]]></variableExpression>
 	</variable>
 	<group name="Group1">
 		<groupExpression><![CDATA[$F{apellido}.charAt(0)]]></groupExpression>
 		<groupHeader>
-			<band height="20">
+			<band height="30">
 				<rectangle>
 					<reportElement x="10" y="0" width="510" height="20" backcolor="#F7F7F7" uuid="29dc2671-0bdd-485c-b74f-62f83b84428b"/>
 				</rectangle>
@@ -40,7 +41,16 @@
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="24"/>
+			<band height="27">
+				<rectangle>
+					<reportElement x="10" y="0" width="510" height="20" backcolor="#F7F7F7" uuid="0ea53dc2-5a5b-4a92-9e4c-e7f15bd84da5"/>
+				</rectangle>
+				<textField>
+					<reportElement x="39" y="0" width="200" height="20" uuid="78130c47-d3d3-4d34-8fe2-67d85320916c"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA["Total de Contactos: "+$V{Group1_COUNT}]]></textFieldExpression>
+				</textField>
+			</band>
 		</groupFooter>
 	</group>
 	<background>
@@ -179,7 +189,7 @@
 		<band height="210">
 			<pieChart>
 				<chart evaluationTime="Report">
-					<reportElement x="180" y="10" width="200" height="200" uuid="6aa57a79-8677-492a-89a7-8051093bafcd"/>
+					<reportElement x="180" y="10" width="200" height="200" uuid="4054d2e6-94e0-410c-8d07-d3bff6fb5ab5"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
@@ -187,9 +197,8 @@
 				<pieDataset>
 					<keyExpression><![CDATA[$F{apellido}.charAt( 0 )]]></keyExpression>
 					<valueExpression><![CDATA[$V{Group1_COUNT}]]></valueExpression>
-					<labelExpression><![CDATA["valor: "+$V{Group1_COUNT}]]></labelExpression>
 				</pieDataset>
-				<piePlot>
+				<piePlot labelFormat="{2}" legendLabelFormat="{0}">
 					<plot/>
 					<itemLabel/>
 				</piePlot>
