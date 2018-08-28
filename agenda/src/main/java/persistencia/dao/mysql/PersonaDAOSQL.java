@@ -59,7 +59,12 @@ public class PersonaDAOSQL implements PersonaDAO {
 			statement.setString(3, persona.getTelefono());
 			statement.setString(4, persona.getCalle());
 			statement.setInt(5, persona.getAltura());
-			statement.setInt(6, persona.getPiso());
+			if(persona.getPiso() == null) {
+				statement.setNull(6, java.sql.Types.INTEGER);
+			}
+			else {
+				statement.setInt(6, persona.getPiso());
+			}
 			statement.setString(7, persona.getDepto());
 			statement.setString(8, persona.getLocalidad());
 			statement.setString(9, persona.getCorreo());
@@ -134,7 +139,12 @@ public class PersonaDAOSQL implements PersonaDAO {
 			statement.setString(2, persona.getTelefono());
 			statement.setString(3, persona.getCalle());
 			statement.setInt(4, persona.getAltura());
-			statement.setInt(5, persona.getPiso());
+			if(persona.getPiso() == null) {
+				statement.setNull(5, java.sql.Types.INTEGER);
+			}
+			else {
+				statement.setInt(5, persona.getPiso());
+			}
 			statement.setString(6, persona.getDepto());
 			statement.setString(7, persona.getLocalidad());
 			statement.setString(8, persona.getCorreo());

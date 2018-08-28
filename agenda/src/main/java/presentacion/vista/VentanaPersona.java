@@ -20,8 +20,9 @@ import com.toedter.calendar.JDateChooser;
 
 import Atxy2k.CustomTextField.RestrictedTextField;
 import presentacion.controlador.Controlador;
+import presentacion.controlador.ValidadorInput;
 
-public class VentanaPersona extends JFrame {
+public class VentanaPersona extends JFrame implements CamposValidables{
 	private static final long serialVersionUID = 1L;
 	
 	private final int altoVentana = 450;
@@ -31,6 +32,8 @@ public class VentanaPersona extends JFrame {
 	private int y_tipoDeContacto = 0;
 	private int y_cumple = 0;
 	private JDateChooser dateChooser;
+	private ValidadorInput validador;
+	
 	
 	
 	private String[] labels = {	"Nombre", "Apellido", "Teléfono", "Email",
@@ -53,6 +56,7 @@ public class VentanaPersona extends JFrame {
 	private JButton btnAgregarPersona;
 	private JButton btnCancelar;
 	
+	private ArrayList<String> campos;
 	
 	private JPanel panel;
 	
@@ -220,39 +224,42 @@ public class VentanaPersona extends JFrame {
 	}
 	
 	private void limiteCaracteres() {
-		//Limito el nombre a 11 caracteres
-		RestrictedTextField restriccionNombre = new RestrictedTextField(textFields.get(0));
-		restriccionNombre.setLimit(11);
-		restriccionNombre.setOnlyText(true);
-		
-		RestrictedTextField restriccionApellido = new RestrictedTextField(textFields.get(1));
-		restriccionApellido.setLimit(11);
-		restriccionApellido.setOnlyText(true);
-		
-		RestrictedTextField restriccionTelefono = new RestrictedTextField(textFields.get(2));
-		restriccionTelefono.setLimit(20);
-		restriccionTelefono.setOnlyNums(true);
-		
-		RestrictedTextField restriccionEmail = new RestrictedTextField(textFields.get(3));
-		restriccionEmail.setLimit(20);
-		
-		RestrictedTextField restriccionCalle = new RestrictedTextField(textFields.get(4));
-		restriccionCalle.setLimit(30);
-		
-		RestrictedTextField restriccionAltura = new RestrictedTextField(textFields.get(5));
-		restriccionAltura.setLimit(4);
-		restriccionAltura.setOnlyNums(true);
-		
-		RestrictedTextField restriccionPiso = new RestrictedTextField(textFields.get(6));
-		restriccionPiso.setLimit(2);
-		restriccionPiso.setOnlyNums(true);
-		
-		RestrictedTextField restriccionDepto = new RestrictedTextField(textFields.get(7));
-		restriccionDepto.setLimit(2);
-		
+		textFields.get(0).setDocument(new JTextFieldCharLimit(11)); //Nombre:11 char
+		textFields.get(1).setDocument(new JTextFieldCharLimit(11)); //Apellido: 11 char
+		textFields.get(2).setDocument(new JTextFieldCharLimit(20)); //Telefono: 20 char
+		textFields.get(3).setDocument(new JTextFieldCharLimit(45)); //Email: 20 char
+		textFields.get(4).setDocument(new JTextFieldCharLimit(30)); //Calle: 30 char
+		textFields.get(5).setDocument(new JTextFieldCharLimit(4)); //Altura: 4 char
+		textFields.get(6).setDocument(new JTextFieldCharLimit(2)); //Piso: 2 char
+		textFields.get(7).setDocument(new JTextFieldCharLimit(2)); //Depto: 2 char
 		
 	}
+
+	public ArrayList<String> camposInvalidos() {
+		campos = new ArrayList<>();
+		validador = new ValidadorInput();
+		if(! validador.validarTextoSinEspacios(textFields.get(0).getText())) campos.add("Nombre");
+		if(! validador.validarTextoSinEspacios(textFields.get(1).getText())) campos.add("Apellido");
+		if(! validador.validarTelefono(textFields.get(2).getText())) campos.add("Teléfono");
+		if(! validador.validarEmail(textFields.get(3).getText())) campos.add("Email");
+		if(! validador.validarTextoConEspacios(textFields.get(4).getText())) campos.add("Calle");
+		if(! validador.validarNumerico(textFields.get(5).getText())) campos.add("Altura");
+		if(! validador.validarNumericoVacio(textFields.get(6).getText())) campos.add("Piso");//Acepta que el campo esté vacío
+		if(! validador.validarAlfaNumericoVacio(textFields.get(7).getText())) campos.add("Depto"); //Acepta que el campo esté vacío
+		return campos;
+	}
 	
+	public String mensajeVerificarCampos() {
+		String texto = "Por favor revise los campos: ";
+		for (int i = 0; i < campos.size(); i++) {
+			if(campos.size() == 1) texto = "Por favor revise el campo " + campos.get(i);
+			else {
+				if(i == campos.size()-1) texto += campos.get(i) + ".";
+				else texto += campos.get(i) + ", ";
+			}
+		}
+		return texto;
+	}
 	
 	
 	
@@ -327,6 +334,7 @@ public class VentanaPersona extends JFrame {
 
 	public JComboBox<String> getComboLocalidades() {
 		return comboLocalidades;
-	}	
+	}
+	
 }
 

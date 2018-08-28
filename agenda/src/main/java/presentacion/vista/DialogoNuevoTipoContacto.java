@@ -1,5 +1,7 @@
 package presentacion.vista;
 
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -7,8 +9,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import presentacion.controlador.Controlador;
+import presentacion.controlador.ValidadorInput;
 
-public class DialogoNuevoTipoContacto extends JFrame{
+public class DialogoNuevoTipoContacto extends JFrame implements CamposValidables{
 	private static final long serialVersionUID = 1L;
 	private JPanel panel;
 	@SuppressWarnings("unused")
@@ -19,6 +22,9 @@ public class DialogoNuevoTipoContacto extends JFrame{
 	private final int  y = 250;
 	private final int width = 300;
 	private final int height = 100;
+	
+	private ArrayList<String> campos;
+	private ValidadorInput validador;
 	
 	
 	private JButton btnAgregar;
@@ -73,6 +79,19 @@ public class DialogoNuevoTipoContacto extends JFrame{
 
 	public JTextField getInput() {
 		return input;
+	}
+
+	@Override
+	public ArrayList<String> camposInvalidos() {
+		this.campos = new ArrayList<>();
+		validador = new ValidadorInput();
+		if(!validador.validarTextoConEspacios(this.input.getText())) campos.add("Nombre");
+		return campos;
+	}
+
+	@Override
+	public String mensajeVerificarCampos() {
+		return "Por favor revise el campo Nombre";
 	}
 	
 	

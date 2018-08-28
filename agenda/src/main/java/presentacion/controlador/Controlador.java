@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 import modelo.Agenda;
 import presentacion.reportes.ReporteAgenda;
@@ -142,65 +143,78 @@ public class Controlador implements ActionListener {
 			}
 			
 			else if(this.dialogoNuevoTipoContacto != null && e.getSource() == this.dialogoNuevoTipoContacto.getBtnAgregar()) {
-				TipoContactoDTO nuevoTipoContacto;
-				if(this.modoEdicionTipoContacto) {
-					nuevoTipoContacto = new TipoContactoDTO(	tipoContactoDTOSeleccionado.getIdTipoContacto(),
-																dialogoNuevoTipoContacto.getInput().getText());
-					this.agenda.updateTipoContacto(nuevoTipoContacto);
-					nuevoTipoContacto = null;
-					modoEdicionTipoContacto = false;
+				if(this.dialogoNuevoTipoContacto.camposInvalidos().size() == 0) {
+					TipoContactoDTO nuevoTipoContacto;
+					if(this.modoEdicionTipoContacto) {
+						nuevoTipoContacto = new TipoContactoDTO(	tipoContactoDTOSeleccionado.getIdTipoContacto(),
+								dialogoNuevoTipoContacto.getInput().getText());
+						this.agenda.updateTipoContacto(nuevoTipoContacto);
+						nuevoTipoContacto = null;
+						modoEdicionTipoContacto = false;
+					}
+					else {
+						this.agenda.agregarTipoContacto(new TipoContactoDTO(0, this.dialogoNuevoTipoContacto.getInput().getText()));
+						
+					}
+					this.llenarTablaTiposContacto();
+					this.llenarTabla();
+					this.llenarComboBoxTiposContacto();
+					this.dialogoNuevoTipoContacto.dispose();
 				}
 				else {
-					this.agenda.agregarTipoContacto(new TipoContactoDTO(0, this.dialogoNuevoTipoContacto.getInput().getText()));
-					
+					JOptionPane.showMessageDialog(null, this.dialogoNuevoTipoContacto.mensajeVerificarCampos());
 				}
-				this.llenarTablaTiposContacto();
-				this.llenarTabla();
-				this.llenarComboBoxTiposContacto();
-				this.dialogoNuevoTipoContacto.dispose();
 			}
 			
 			
 			
 			
 			else if(e.getSource() == this.ventanaPersona.getBtnAgregarPersona()) {
-				PersonaDTO nuevaPersona;
-				if(this.modoEdicionContacto) {
-					nuevaPersona = new PersonaDTO(	personaSeleccionada.getIdPersona(),
-													ventanaPersona.getTxtNombre().getText(),
-													ventanaPersona.getTxtApellido().getText(),
-													ventanaPersona.getTxtTelefono().getText(),
-													ventanaPersona.getTxtCalle().getText(),
-													Integer.parseInt(ventanaPersona.getTxtAltura().getText()),
-													Integer.parseInt(ventanaPersona.getTxtPiso().getText()),
-													ventanaPersona.getTxtDepto().getText(),
-													ventanaPersona.getTxtLocalidad(),
-													ventanaPersona.getTxtEmail().getText(),
-													ventanaPersona.getFechaNac(),
-													ventanaPersona.getTipoContacto());
-					
-					this.agenda.updatePersona(nuevaPersona);
-					personaSeleccionada = null;
+				if(ventanaPersona.camposInvalidos().size() == 0) {
+					PersonaDTO nuevaPersona;
+					Integer piso = (ventanaPersona.getTxtPiso().getText().equals("")) ? null : Integer.parseInt(ventanaPersona.getTxtPiso().getText());
+					if(this.modoEdicionContacto) {
+						
+						nuevaPersona = new PersonaDTO(	personaSeleccionada.getIdPersona(),
+														ventanaPersona.getTxtNombre().getText(),
+														ventanaPersona.getTxtApellido().getText(),
+														ventanaPersona.getTxtTelefono().getText(),
+														ventanaPersona.getTxtCalle().getText(),
+														Integer.parseInt(ventanaPersona.getTxtAltura().getText()),
+														piso,
+														ventanaPersona.getTxtDepto().getText(),
+														ventanaPersona.getTxtLocalidad(),
+														ventanaPersona.getTxtEmail().getText(),
+														ventanaPersona.getFechaNac(),
+														ventanaPersona.getTipoContacto());
+						
+						this.agenda.updatePersona(nuevaPersona);
+						personaSeleccionada = null;
+					}
+					else {
+						nuevaPersona = new PersonaDTO(	0,
+								this.ventanaPersona.getTxtNombre().getText(),
+								ventanaPersona.getTxtApellido().getText(),
+								ventanaPersona.getTxtTelefono().getText(),
+								ventanaPersona.getTxtCalle().getText(),
+								Integer.parseInt(ventanaPersona.getTxtAltura().getText()),
+								piso,
+								ventanaPersona.getTxtDepto().getText(),
+								ventanaPersona.getTxtLocalidad(),
+								ventanaPersona.getTxtEmail().getText(),
+								ventanaPersona.getFechaNac(),
+								ventanaPersona.getTipoContacto()
+								);
+						this.agenda.agregarPersona(nuevaPersona);
+					}
+					this.llenarTabla();
+					this.ventanaPersona.dispose();
+					this.modoEdicionContacto = false;
 				}
-				else {
-					nuevaPersona = new PersonaDTO(	0,
-							this.ventanaPersona.getTxtNombre().getText(),
-							ventanaPersona.getTxtApellido().getText(),
-							ventanaPersona.getTxtTelefono().getText(),
-							ventanaPersona.getTxtCalle().getText(),
-							Integer.parseInt(ventanaPersona.getTxtAltura().getText()),
-							Integer.parseInt(ventanaPersona.getTxtPiso().getText()),
-							ventanaPersona.getTxtDepto().getText(),
-							ventanaPersona.getTxtLocalidad(),
-							ventanaPersona.getTxtEmail().getText(),
-							ventanaPersona.getFechaNac(),
-							ventanaPersona.getTipoContacto()
-							);
-					this.agenda.agregarPersona(nuevaPersona);
+				else{
+					JOptionPane.showMessageDialog(null, ventanaPersona.mensajeVerificarCampos());
 				}
-				this.llenarTabla();
-				this.ventanaPersona.dispose();
-				this.modoEdicionContacto = false;
+				
 			}
 			
 			else if(this.ventanaLocalidad != null  && e.getSource() == this.ventanaLocalidad.getBtnEditar()) {
@@ -237,21 +251,26 @@ public class Controlador implements ActionListener {
 			}
 			
 			else if(this.dialogoNuevaLocalidad != null && e.getSource() == this.dialogoNuevaLocalidad.getBtnAgregar()) {
-				LocalidadDTO nuevaLocalidad;
-				if(this.modoEdicionLocalidad) {
-					nuevaLocalidad = new LocalidadDTO(	localidadSeleccionada.getIdLocalidad(),
-														dialogoNuevaLocalidad.getInput().getText());
-					this.agenda.updateLocalidad(nuevaLocalidad);
-					localidadSeleccionada = null;
-					this.modoEdicionLocalidad = false;
+				if(this.dialogoNuevaLocalidad.camposInvalidos().size() == 0) {
+					LocalidadDTO nuevaLocalidad;
+					if(this.modoEdicionLocalidad) {
+						nuevaLocalidad = new LocalidadDTO(	localidadSeleccionada.getIdLocalidad(),
+								dialogoNuevaLocalidad.getInput().getText());
+						this.agenda.updateLocalidad(nuevaLocalidad);
+						localidadSeleccionada = null;
+						this.modoEdicionLocalidad = false;
+					}
+					else {
+						this.agenda.agregarLocalidad(new LocalidadDTO(0, this.dialogoNuevaLocalidad.getInput().getText()));
+					}
+					this.llenarTablaLocalidades();
+					this.llenarTabla();
+					this.llenarComboBoxLocalidades();
+					this.dialogoNuevaLocalidad.dispose();
 				}
 				else {
-					this.agenda.agregarLocalidad(new LocalidadDTO(0, this.dialogoNuevaLocalidad.getInput().getText()));
+					JOptionPane.showMessageDialog(null, this.dialogoNuevaLocalidad.mensajeVerificarCampos());
 				}
-				this.llenarTablaLocalidades();
-				this.llenarTabla();
-				this.llenarComboBoxLocalidades();
-				this.dialogoNuevaLocalidad.dispose();
 			}
 			
 			
