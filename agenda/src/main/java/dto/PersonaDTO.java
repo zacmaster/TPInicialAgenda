@@ -6,7 +6,7 @@ public class PersonaDTO {
 	private String telefono;
 	private String calle;
 	private int altura;
-	private int piso;
+	private Integer piso;
 	private String depto;
 	private String localidad;
 	private String correo;
@@ -15,7 +15,7 @@ public class PersonaDTO {
 	private String apellido;
 	private int contador;
 
-	public PersonaDTO(int idPersona, String nombre, String apellido, String telefono, String calle, int altura, int piso, String depto, String localidad, String correo, String fecha_nacimiento, String tipo_contacto) {
+	public PersonaDTO(int idPersona, String nombre, String apellido, String telefono, String calle, int altura, Integer piso, String depto, String localidad, String correo, String fecha_nacimiento, String tipo_contacto) {
 		this.idPersona = idPersona;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -71,7 +71,7 @@ public class PersonaDTO {
 		this.altura = altura;
 	}
 
-	public int getPiso() {
+	public Integer getPiso() {
 		return piso;
 	}
 
