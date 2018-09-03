@@ -31,7 +31,7 @@
 		<groupHeader>
 			<band height="30">
 				<rectangle>
-					<reportElement x="10" y="0" width="510" height="20" backcolor="#F7F7F7" uuid="29dc2671-0bdd-485c-b74f-62f83b84428b"/>
+					<reportElement x="10" y="0" width="510" height="20" backcolor="#FFC34A" uuid="29dc2671-0bdd-485c-b74f-62f83b84428b"/>
 				</rectangle>
 				<textField>
 					<reportElement x="39" y="0" width="100" height="20" backcolor="#EBEBEB" uuid="5e2c0854-8eba-4658-9dc8-c2c396b96832"/>
@@ -43,7 +43,10 @@
 		<groupFooter>
 			<band height="27">
 				<rectangle>
-					<reportElement x="10" y="0" width="510" height="20" backcolor="#F7F7F7" uuid="0ea53dc2-5a5b-4a92-9e4c-e7f15bd84da5"/>
+					<reportElement stretchType="RelativeToBandHeight" x="10" y="0" width="510" height="20" backcolor="#F7FCB6" uuid="0ea53dc2-5a5b-4a92-9e4c-e7f15bd84da5"/>
+					<graphicElement>
+						<pen lineColor="rgba(240, 190, 189, 0.0)"/>
+					</graphicElement>
 				</rectangle>
 				<textField>
 					<reportElement x="39" y="0" width="200" height="20" uuid="78130c47-d3d3-4d34-8fe2-67d85320916c"/>
@@ -61,7 +64,7 @@
 			<frame>
 				<reportElement x="0" y="0" width="550" height="40" uuid="fbf866cd-64dc-4043-b98c-ed8d9f31d19c"/>
 				<staticText>
-					<reportElement x="0" y="10" width="170" height="30" uuid="df09700e-f0a8-43aa-a9d6-1430d1a7476d"/>
+					<reportElement x="0" y="10" width="239" height="30" uuid="df09700e-f0a8-43aa-a9d6-1430d1a7476d"/>
 					<textElement>
 						<font size="18"/>
 					</textElement>
