@@ -5,7 +5,13 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
+import java.net.URL;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 
@@ -16,6 +22,7 @@ public class Vista {
 	private JButton btnBorrar;
 	private JButton btnEditar;
 	private JButton btnReporte;
+	private JButton btnConfig;
 	private DefaultTableModel modelPersonas;
 	private  String[] nombreColumnas = {	"Nombre","Apellido","Teléfono","Email",
 											"Grupo","Cumpleaños","Localidad",
@@ -73,6 +80,14 @@ public class Vista {
 		btnReporte.setBounds(307, 228, 89, 23);
 		panel.add(btnReporte);
 		frame.setResizable(false);
+		
+		
+		
+		URL imgURL = getClass().getResource("../../gear.png");
+		Icon icon = new ImageIcon(imgURL);
+		btnConfig = new JButton(icon);
+		btnConfig.setBounds(405, 228, 25, 23);
+		panel.add(btnConfig);
 	}
 	
 	public void show() {
@@ -93,6 +108,13 @@ public class Vista {
 		this.frame.setVisible(true);
 	}
 	
+	
+	
+	public JButton getBtnConfig() {
+		return btnConfig;
+	}
+
+
 	public JButton getBtnAgregar() {
 		return btnAgregar;
 	}

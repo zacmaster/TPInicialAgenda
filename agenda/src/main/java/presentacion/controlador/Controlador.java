@@ -15,6 +15,7 @@ import modelo.Agenda;
 import presentacion.reportes.ReporteAgenda;
 import presentacion.vista.DialogoNuevaLocalidad;
 import presentacion.vista.DialogoNuevoTipoContacto;
+import presentacion.vista.VentanaConfiguracionDB;
 import presentacion.vista.VentanaLocalidad;
 import presentacion.vista.VentanaPersona;
 import presentacion.vista.VentanaTipoContacto;
@@ -32,6 +33,7 @@ public class Controlador implements ActionListener {
 		
 		private VentanaPersona ventanaPersona; 
 		private VentanaLocalidad ventanaLocalidad;
+		private VentanaConfiguracionDB ventanaConfiguracionDB;
 		private VentanaTipoContacto ventanaTipoContacto;
 		private DialogoNuevaLocalidad dialogoNuevaLocalidad;
 		private DialogoNuevoTipoContacto dialogoNuevoTipoContacto;
@@ -54,6 +56,7 @@ public class Controlador implements ActionListener {
 			this.vista.getBtnEditar().addActionListener(this);
 			this.vista.getBtnBorrar().addActionListener(this);
 			this.vista.getBtnReporte().addActionListener(this);
+			this.vista.getBtnConfig().addActionListener(this);
 			this.agenda = agenda;
 			this.personas_en_tabla = null;
 			this.localidades_en_tabla = null;
@@ -88,7 +91,12 @@ public class Controlador implements ActionListener {
 		}
 		
 		public void actionPerformed(ActionEvent e)  {
-			if(e.getSource() == this.vista.getBtnAgregar()) {
+			if(e.getSource() == this.vista.getBtnConfig()) {
+				this.ventanaConfiguracionDB = new VentanaConfiguracionDB(this);
+				
+				
+			}
+			else if(e.getSource() == this.vista.getBtnAgregar()) {
 				this.ventanaPersona = new VentanaPersona(this);
 				this.llenarComboBoxTiposContacto();
 				this.llenarComboBoxLocalidades();
