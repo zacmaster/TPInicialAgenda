@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import presentacion.reportes.ReporteAgenda;
+
 
 public class Conexion {
 	public static Conexion instancia;
@@ -16,7 +16,18 @@ public class Conexion {
 	private Conexion() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver"); // quitar si no es necesario
-			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda","root","root");
+			
+			String ip = RWProperties.getValue("dbIP");
+			String puerto = RWProperties.getValue("dbPort");
+			String nombreDB = RWProperties.getValue("dbName");
+			String usuario = RWProperties.getValue("dbUser");
+			String pass = RWProperties.getValue("dbPassword");
+			
+			this.connection = DriverManager.getConnection(	"jdbc:mysql://"+
+															ip + ":" + puerto +
+															"/" + nombreDB,usuario,
+															pass);
+			
 			log.info("Conexión exitosa");
 		}
 		catch(Exception e) {

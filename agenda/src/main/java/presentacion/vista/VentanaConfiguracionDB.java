@@ -1,12 +1,14 @@
 package presentacion.vista;
 
+import java.io.IOException;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-
+import persistencia.conexion.RWProperties;
 import presentacion.controlador.Controlador;
 
 public class VentanaConfiguracionDB extends JFrame{
@@ -22,7 +24,7 @@ public class VentanaConfiguracionDB extends JFrame{
 	private JTextField inputPassword;
 	
 	private JButton btnCancelar;
-	private JButton btnAceptar;
+	private JButton btnGuardar;
 	
 	
 	
@@ -36,7 +38,6 @@ public class VentanaConfiguracionDB extends JFrame{
 		setResizable(false);
 		
 		this.setTitle("Configuracion de la Base de Datos");
-		this.setVisible(true);
 		
 		
 		contenedor = new JPanel();
@@ -60,7 +61,7 @@ public class VentanaConfiguracionDB extends JFrame{
 		JLabel usuarioLabel = new JLabel("Usuario");
 		JLabel passwordLabel = new JLabel("Password");
 		
-		btnAceptar = new JButton("Aceptar");
+		btnGuardar = new JButton("Guardar");
 		btnCancelar = new JButton("Cancelar");
 		
 		
@@ -75,7 +76,7 @@ public class VentanaConfiguracionDB extends JFrame{
 		inputPassword.setBounds(MARGEN_IZQ + 100, 140, 120, 20);
 		
 		btnCancelar.setBounds(MARGEN_IZQ - 20, 200, 100, 20);
-		btnAceptar.setBounds(MARGEN_IZQ + 150, 200, 100, 20);
+		btnGuardar.setBounds(MARGEN_IZQ + 150, 200, 100, 20);
 
 		
 		contenedor.add(ipLabel);
@@ -83,7 +84,7 @@ public class VentanaConfiguracionDB extends JFrame{
 		contenedor.add(usuarioLabel);
 		contenedor.add(passwordLabel);
 		
-		contenedor.add(btnAceptar);
+		contenedor.add(btnGuardar);
 		contenedor.add(btnCancelar);
 	
 		contenedor.add(inputIP);
@@ -91,12 +92,39 @@ public class VentanaConfiguracionDB extends JFrame{
 		contenedor.add(inputUsuario);
 		contenedor.add(inputPassword);
 		
-		btnCancelar.addActionListener(e -> {
-			dispose();
-		});
-		btnAceptar.addActionListener(this.controlador);
+		btnCancelar.addActionListener(this.controlador);
+		btnGuardar.addActionListener(this.controlador);
 		
+		leerProperties();
 		
+		this.setVisible(true);
+	}
+	
+	private void leerProperties(){
+		try {
+			inputIP.setText(RWProperties.getValue("dbIP"));
+			inputPuerto.setText(RWProperties.getValue("dbPort"));
+			inputUsuario.setText(RWProperties.getValue("dbUser"));
+			inputPassword.setText(RWProperties.getValue("dbPassword"));
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+
+	public void guardar() throws IOException {
+		RWProperties.writeValue("dbIP", inputIP.getText());
+		RWProperties.writeValue("dbPort", inputPuerto.getText());
+		RWProperties.writeValue("dbUser", inputUsuario.getText());
+		RWProperties.writeValue("dbPassword", inputPassword.getText());
+	}
+	
+	public JButton getBtnGuardar() {
+		return btnGuardar;
+	}
+	public JButton getBtnCancelar() {
+		return btnCancelar;
 	}
 	
 }	

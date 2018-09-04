@@ -2,6 +2,7 @@ package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -12,6 +13,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 import modelo.Agenda;
+import persistencia.conexion.RWProperties;
+import persistencia.dao.mysql.ConfigDAOSQL;
 import presentacion.reportes.ReporteAgenda;
 import presentacion.vista.DialogoNuevaLocalidad;
 import presentacion.vista.DialogoNuevoTipoContacto;
@@ -65,6 +68,7 @@ public class Controlador implements ActionListener {
 		public void inicializar() {
 			this.llenarTabla();
 			this.vista.show();
+			this.mostrarConfiguracionDB();
 		}
 		
 		private void llenarTabla() {
@@ -93,8 +97,27 @@ public class Controlador implements ActionListener {
 		public void actionPerformed(ActionEvent e)  {
 			if(e.getSource() == this.vista.getBtnConfig()) {
 				this.ventanaConfiguracionDB = new VentanaConfiguracionDB(this);
-				
-				
+			}
+			else if(this.ventanaConfiguracionDB != null && e.getSource() == this.ventanaConfiguracionDB.getBtnCancelar()) {
+				try {
+					RWProperties.writeValue("firstTime", "false");
+				} catch (IOException e1) { e1.printStackTrace(); }
+				ventanaConfiguracionDB.dispose();
+			}
+			else if(this.ventanaConfiguracionDB != null && e.getSource() == this.ventanaConfiguracionDB.getBtnGuardar()) {
+				try {
+					ventanaConfiguracionDB.guardar();
+					ConfigDAOSQL configDAOSQL = new ConfigDAOSQL();
+					configDAOSQL.updatePasswordDAOSQL();
+					
+					
+					try {
+						RWProperties.writeValue("firstTime", "false");
+					} catch (IOException e1) { e1.printStackTrace(); }
+					ventanaConfiguracionDB.dispose();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 			else if(e.getSource() == this.vista.getBtnAgregar()) {
 				this.ventanaPersona = new VentanaPersona(this);
@@ -242,8 +265,6 @@ public class Controlador implements ActionListener {
 			}
 			
 			
-			
-			
 			else if(this.ventanaLocalidad != null && e.getSource() == this.ventanaLocalidad.getBtnBorrar()) {
 				int[] filas_seleccionadas = this.ventanaLocalidad.getTablaLocalidades().getSelectedRows();
 				for (int fila:filas_seleccionadas) {
@@ -282,9 +303,6 @@ public class Controlador implements ActionListener {
 			}
 			
 			
-			
-			
-			
 		}
 		
 		private void llenarCamposPersona() {
@@ -313,9 +331,6 @@ public class Controlador implements ActionListener {
 			
 			
 		}
-		
-		
-		
 		
 		
 		private void llenarCampoLocalidad() {
@@ -373,7 +388,16 @@ public class Controlador implements ActionListener {
 				this.ventanaPersona.getComboLocalidades().addItem(localidadDTO.getNombreLocalidad());
 			}
 		}
-		
-		
 
+		public void mostrarConfiguracionDB() {
+			String flag;
+			try {
+				flag = RWProperties.getValue("firstTime");
+				if(Boolean.valueOf(flag)) {
+					this.ventanaConfiguracionDB = new VentanaConfiguracionDB(this);
+					this.ventanaConfiguracionDB.setAlwaysOnTop(true);
+				}
+			} catch (IOException e) { e.printStackTrace(); }
+		}
+		
 }

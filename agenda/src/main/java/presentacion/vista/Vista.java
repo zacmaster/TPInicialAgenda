@@ -5,9 +5,12 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import persistencia.conexion.RWProperties;
+import presentacion.controlador.Controlador;
+
+import java.io.IOException;
 import java.net.URL;
 
 import javax.swing.Icon;
@@ -27,6 +30,8 @@ public class Vista {
 	private  String[] nombreColumnas = {	"Nombre","Apellido","Teléfono","Email",
 											"Grupo","Cumpleaños","Localidad",
 											"Calle","Altura","Piso","Depto"};
+	
+	private Controlador controlador;
 
 	public Vista() {
 		super();
@@ -82,12 +87,12 @@ public class Vista {
 		frame.setResizable(false);
 		
 		
-		
 		URL imgURL = getClass().getResource("../../gear.png");
 		Icon icon = new ImageIcon(imgURL);
 		btnConfig = new JButton(icon);
 		btnConfig.setBounds(405, 228, 25, 23);
 		panel.add(btnConfig);
+		
 	}
 	
 	public void show() {
@@ -107,6 +112,7 @@ public class Vista {
 //		});
 		this.frame.setVisible(true);
 	}
+	
 	
 	
 	
